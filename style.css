@@ -1,4 +1,45 @@
 
+
+
 #menu{
-    font-color: #ffbbee;
+    color: #2e3983;
+    padding-bottom: 20px;
+}
+
+h3{
+    color: #2e1913;
+    font: 16px arial black;
+    /*font-weight: bold;*/
+    
+}
+.menulink {
+}
+.menulink a{
+    width: 80px;
+    text-align: center;
+    display: inline-block;
+    color: #2e3983;
+    text-decoration: none;
+}
+p{
+    text-indent: 30px;
+}
+body{
+    background-color: #fafafa;
+
+}
+
+#bbody{
+    min-width: 390px;
+    background-color: #ffd773;
+    border: 1px solid #a67700;
+    display: block;
+    margin-left: 15%;
+    margin-right: 15%;
+    padding: 10px;
+    font: 12px arial, sans-serif;
+}
+
+.bodypart{
+    font-color: #2e3983;
 }
