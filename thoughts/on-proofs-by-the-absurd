@@ -1,0 +1,11 @@
+I had a discussion with a friend a few days ago. He wondered how we could positively proove that our other friend "existed" using only logic. Or more generally, he wondered how to formulate a valid hypothesis, considering a hypothesis is only valid if it disprovable.
+
+This trivial task appeared to cause him a slight problem, that of finding the right logical implication, one which didn't allow us to proove that pink unicorns exist. 
+
+The problem appeared as follows, our premise being that the material world exists and that we can observe it: We cannot postulate as a hypothesis "J does exist", because it is not disprovable (for the same reason that we cannot postulate that "there is a flying teapot orbiting the Sun somewhere between Mars and Earth", we cannot prove reasonably that it isn't there)
+
+_However_, what we are allowed to do is to claim that "J doesn't exist", which is a very falsifiable claim (if J does exist!) that requires us only to find said J. If we do manage to prove our hypothesis wrong, then, according to my understanding of logic, we have just proved that J does exist!
+
+This might sound like circular reasoning since it appears we have used the fact that J exists to disprove that "J doesn't exist". In fact we did not. We first postulated that we live in a material world where things can be observed. "J doesn't exist" is wrong because J can be observed (whether it is an illusion or not is another matter entirely). Thus, comes the seemingly trivial conclusion that J exists because J can be observed.
+
+This reasoning is the basis of many logical and mathematical claims, more on that [http://en.wikipedia.org/wiki/Proof_by_contradiction here].
