@@ -1,0 +1,32 @@
+
+I'll try to keep this page ordered chronologically; newer projects are on top.
+==Rogue==
+Rogue is a Scheme-to-x64 compiler written (almost) entirely in Scheme by me and a friend for my compilation class. It uses a limited, but usable, subset of Scheme. It is indeed usable enough that Rogue can compile itself. Only once though, because it lacks a fully-functionnal <code>eval</code> function and because it would take a formidable amout of time, Rogue having little to no optimizations.
+
+It was written and "bootstrapped" using [http://dynamo.iro.umontreal.ca/wiki/index.php/Main_Page Gambit Scheme].
+==Voxaedra==
+For some time I've fancied doing another game after my youth adventure with PSO (see below). I've been working for a while on a 3D voxel-based game, which I do not know which gameplay direction it could take.
+
+More on that later!
+
+==PyVariable==
+I don't like *boost* so much as a C++ tool. It's handy of course, but it can easily become a mess when you don't know how to use it properly.
+
+In the spirit of reinventing the wheel, and also discovering more about my favorite language, Python, I decided to make a C++ class which would wrap a PyObject and overload as much operators as decently possible to make the handling of Python objects in C++ easy.
+
+It kinda works. You can take a look for yourself on the [http://github.com/bengioe/PyVariable git repo].
+
+==Pirate Story Online==
+
+My first *real* big project was of course, a game. 
+In itself, the game rules and dynamics were never clearly written down, nor were the amateur artists of great assistance. 
+Nevertheless, we were a fun gang, and being the only programmer among it, I wish I'd saved more funny quotes.
+
+
+At it's *apogee*, the game was online with chat, melee combat against monsters(if you can call them that), moving around and having a nice chat with NPCs, and, last but not least, the possibility to have negative HP. There were also some tools like a rudimentary map and sprite editor.
+
+
+The whole thing was written in a mix of Python, C++ with SFML, and alot of comments along the lines of <code>//This shouldn't work but it does</code>. You know, the usual when you're young and budding.
+
+
+You might enjoy watching [http://www.youtube.com/watch?v=10qhG1-BYLA a video] of the early stages of the game.

@@ -1,0 +1,5 @@
+Assembly Tricks, 2013/06/27!~ 
+
+==gdb==
+
+Setting the eflags register (at least in gdb 7.5): <code>set $eflags=0</code>
