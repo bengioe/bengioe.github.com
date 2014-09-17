@@ -1,5 +1,15 @@
 
-
+tr{
+}
+td{
+    vertical-align: top;
+    padding-bottom:1.4em;
+}
+.leftf{
+    font: 13pt arial;
+    font-weight: bold;
+    width: 12em;
+}
 
 #menu{
     color: #2e3983;
@@ -23,6 +33,10 @@ h3{
     text-decoration: none;
 }
 
+a{
+    text-decoration: none;
+    color: #569;
+} 
 p
 {
     text-indent: 30pt;
