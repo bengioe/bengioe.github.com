@@ -1,4 +1,3 @@
-
 tr{
 }
 td{
@@ -11,54 +10,7 @@ td{
     width: 12em;
 }
 
-#menu{
-    color: #2e3983;
-    padding-bottom: 20pt;
-}
-
-h3{
-    color: #2e1913;
-    font: 16pt arial black;
-    /*font-weight: bold;*/
-    
-}
-.menulink {
-}
-
-.menulink a{
-    width: 80pt;
-    text-align: center;
-    display: inline-block;
-    color: #2e3983;
-    text-decoration: none;
-}
-
 a{
     text-decoration: none;
     color: #569;
 } 
-p
-{
-    text-indent: 30pt;
-}
-body{
-    background-color: #fafafa;
-
-}
-
-#bbody{
-    min-width: 390pt;
-    background-color: #ffd773;
-    border: 1pt solid #a67700;
-    display: block;
-    margin-left: 15%;
-    margin-right: 15%;
-    padding: 10pt;
-    font: 15pt arial, sans-serif;
-}
-code{
-    font: 13pt courier;
-}
-.bodypart{
-    font-color: #2e3983;
-}

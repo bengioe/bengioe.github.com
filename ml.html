@@ -1,0 +1,56 @@
+<html>
+<head>
+  <title>Machine Learning</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+  <link rel="stylesheet" type="text/css" href="style.css"/>
+  <script type="text/javascript"
+	  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script>
+</head>
+<body>
+  <div id="principal">
+    <div id="ptext">
+      <center>
+	<h2>A (succint) reference on (parts of) Machine Learning</h2>
+	<hr width="30%">
+      </center>
+      <br/>
+      <h2>Single Function Learning, (un)supervised algorithms</h2>
+      <h3>General Terms</h3>
+      \(X \in \mathbb{R}^{n\times d_x}\) is input data. \(Y \in \mathbb{R}^{n\times d_y}\) is a target. \(w\) is a set of weights.
+
+
+      <h3>Linear Regression</h3>
+      Regression, \(d_y = 1\). Find \(w \in \mathbb{R}^{d_x}\) that minimises \(Err(X,Y,w)\). Typically mean square error, $$Err(X,Y,w) = \sum_i^n (y_i-x_i^Tw)^2=(Y-Xw)^T(Y-Xw)$$
+      $$\frac{\partial Err(X,Y,w)}{\partial w} = 2\left(\frac{\partial}{\partial w}(Y-Xw)\right)^T(Y-Xw) = -2X^T(Y-Xw)$$
+      Which leaves us with the following analytical solution (in \(O(d_x^3)\)) for \(w\)
+      $$ -2X^T(Y-Xw)=0 \iff 2X^TXw = 2X^TY \iff w = (X^TX)^{-1}X^TY$$
+
+      <h3>Neural Networks</h3>
+      <b>Fully connected neural nets</b> are typically defined as a series of layers with weights \(w_i = \{ W^{(i)} \in \mathbb{R}^{d_x\times d_y}, b^{(i)} \in \mathbb{R}^{d_y} \}\), input \(x_i\) and output \(h_{i+1}\) or \(x_{i+1}\). <br/>
+      $$h_{i+1} = f(xW^{(i)}+b)$$
+      where \(f\) is an activation function. <br/>
+      Typical activation functions are (and this is but a sample of all activation functions that exist):
+      <ul>
+	<li>the "sigmoid": \(\frac{1}{1+e^{-x}}\)</li>
+	<li>the hyperbolic tangent: \(tanh\)</li>
+	<li>the softmax: \(\frac{e^{x_i}}{\sum_j e^{x_j}}\) (which sums nicely to 1)</li>
+	<li>rectifiers: \(\max(0,x)\) and their soft counterpart, \(\log(1+e^x)\)</li>
+      </ul>
+      
+      
+      
+      <h2>Reinforcement Learning</h2>
+      <h3>General terms</h3>
+      RL problems are typically defined by \((S,A,r)\). Where \(S\) is the set of possible states, \(A\) the set of actions, and \(r:(S,A)\to \mathbb{R}\) is the reward of an agent accomplishing action \(a\) while in state \(s\).<br/>
+      \(\pi :(S,A)\to [0;1]\) is the policy of the agent, it typically is a probability mass/density function. <br/>
+      \(R_t = \sum_{k=0}^T \gamma^k r_{t+k+1}\) is the return, sum of all rewards to come.<br/>
+      
+    </div>      
+    <div id="bot">
+      Emmanuel Bengio.
+    </div>
+    <br class="wide"/>
+  </div>
+</body>
+</html>
