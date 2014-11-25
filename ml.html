@@ -21,14 +21,21 @@
 
 
       <h3>Linear Regression</h3>
-      Regression, \(d_y = 1\). Find \(w \in \mathbb{R}^{d_x}\) that minimises \(Err(X,Y,w)\). Typically mean square error, $$Err(X,Y,w) = \sum_i^n (y_i-x_i^Tw)^2=(Y-Xw)^T(Y-Xw)$$
+      Regression, typical \(d_y = 1\), can be done with \(d_y\in \mathbb{N}\).<br/>
+      Find \(w \in \mathbb{R}^{d_x}\) that minimises \(Err(X,Y,w)\). Typically mean square error, $$Err(X,Y,w) = \sum_i^n (y_i-x_i^Tw)^2=(Y-Xw)^T(Y-Xw)$$
       $$\frac{\partial Err(X,Y,w)}{\partial w} = 2\left(\frac{\partial}{\partial w}(Y-Xw)\right)^T(Y-Xw) = -2X^T(Y-Xw)$$
       Which leaves us with the following analytical solution (in \(O(d_x^3)\)) for \(w\)
       $$ -2X^T(Y-Xw)=0 \iff 2X^TXw = 2X^TY \iff w = (X^TX)^{-1}X^TY$$
 
+      <h3>Naive Bayes</h3>
+      Classification. Find \(P(Y=i)\) and \(P(X_j|Y=i)\) by counting from dataset.<br/>
+      Estimate \(P(Y=i|X)\) by \(P(Y=i)\prod_j P(X_j|Y=i) \), take argmax. <br/>
+      Can be extendent to non-binary \(X_j \in V\), but then memory complexity becomes \(O(|V|d_x d_y)\).
+
+
       <h3>Neural Networks</h3>
       <b>Fully connected neural nets</b> are typically defined as a series of layers with weights \(w_i = \{ W^{(i)} \in \mathbb{R}^{d_x\times d_y}, b^{(i)} \in \mathbb{R}^{d_y} \}\), input \(x_i\) and output \(h_{i+1}\) or \(x_{i+1}\). <br/>
-      $$h_{i+1} = f(xW^{(i)}+b)$$
+      $$h_{i+1} = f(xW^{(i)}+b^{(i)})$$
       where \(f\) is an activation function. <br/>
       Typical activation functions are (and this is but a sample of all activation functions that exist):
       <ul>
@@ -42,10 +49,13 @@
       
       <h2>Reinforcement Learning</h2>
       <h3>General terms</h3>
-      RL problems are typically defined by \((S,A,r)\). Where \(S\) is the set of possible states, \(A\) the set of actions, and \(r:(S,A)\to \mathbb{R}\) is the reward of an agent accomplishing action \(a\) while in state \(s\).<br/>
+      RL problems are typically defined by \((S,A,r)\). <br/>
+      \(S\) is the set of possible states, \(A\) the set of actions, and \(r:(S,A)\to \mathbb{R}\) is the reward of an agent accomplishing action \(a\) while in state \(s\).<br/>
       \(\pi :(S,A)\to [0;1]\) is the policy of the agent, it typically is a probability mass/density function. <br/>
       \(R_t = \sum_{k=0}^T \gamma^k r_{t+k+1}\) is the return, sum of all rewards to come.<br/>
-      
+      \(V(s) = E\left{R_t\;|\;s_t=s\right}\)
+      <h3>TD(0)</h3>
+      For \(S\) and \(A\) finite.
     </div>      
     <div id="bot">
       Emmanuel Bengio.
