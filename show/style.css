@@ -1,0 +1,66 @@
+body{
+    pointer-events: none;
+}
+section {
+    font: 3em arial;
+    text-align: center;
+    pointer-events: none;
+}
+#pres{
+    pointer-events: none;
+}
+
+section h1 {
+    font: 3em arial;
+}
+
+left {
+    display: block;
+    text-align: left;
+    font: bold 1.2em arial;
+}
+
+icode{
+    font-family: monospace;
+    font-size: 1.2em;
+}
+
+pre {
+    padding:0;
+    margin:0;
+    }
+
+code {
+    background-color: #dfd;
+    display: inline-block;
+    text-align: left;
+    padding: 1em;
+    pointer-events: none;
+}
+
+ul {
+    display: inline-block;
+    text-align: left;
+}
+
+svg ellipse{
+    stroke: black;
+}
+svg text{
+    font: 0.8em arial;
+}
+
+svg{
+    background-color: #fff;
+    pointer-events:all;
+}
+svg line{
+    stroke: #000;
+    stroke-width: 2;
+}
+.background_graph{
+    position:absolute;
+    left: 0;
+    top: 0;
+    z-index:-1;
+}

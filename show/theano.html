@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+  <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+  <script src="show.js"></script>
+
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+<div id="pres">
+
+
+  <section>
+    <h1>Theano</h1>
+    <h4>A short practical guide</h4><br/><br/>
+    Emmanuel Bengio
+
+  </section>
+
+  <section>
+    <left>What is Theano?</left><br/>
+    <ul>
+      <li>A language</li>
+      <li>A compiler</li>
+      <li>A Python library</li>
+    </ul><br/>
+    <code>
+      <pre><span style="color:orange">import</span> theano
+<span style="color:orange">import</span> theano.tensor <span style="color:orange">as</span> T</pre>
+    </code><br/>
+  </section>
+
+  <section>
+    <left>What is Theano?</left><br/>
+    What you really do:
+    <ul>
+      <li>Build graphs of computation (w/ input nodes)</li>
+      <li>Automatically compute gradients through it<br/> </li>
+    </ul>
+    <code>
+      <pre>gradient = T.grad(cost, parameter)</pre>
+    </code><br/>
+    <ul>
+      <li>Feed some data</li>
+      <li>Get results!</li>
+    </ul>
+    <br/>
+
+  </section>
+
+  <section onenter="ttt_previous">
+    <script>
+      DAG(
+      [{label:"x", color:"#f00"}],"","",
+      [0.75,0.25],
+      "xa")
+    </script>
+    <left>First Example</left><br/>
+    <code><pre><span style="color:#f00">x</span> = T.scalar()</pre></code>
+  </section>
+
+  <section onenter="ttt_previous">
+    <script>
+      DAG(
+      [{label:"x", color:"#f00"}, {label:"y", color:"#00f"}],
+      "","xy",
+      [0.75,0.25],
+      "xa")
+    </script>
+    <left>First Example</left><br/>
+    <code><pre><span style="color:#f00">x</span> = T.scalar()
+<span style="color:#00f">y</span> = T.scalar()</pre></code>
+  </section>
+
+  <section onenter="ttt_previous">
+    <script>
+      DAG(
+      [{label:"x", color:"#f00"}, {label:"y", color:"#00f"}, {label:"z", color:"#0f0"}],
+      "xz,yz","xy",
+      [0.5,0.65],
+      "xa")
+    </script>
+    <left>First Example</left><br/>
+    <code><pre>
+<span style="color:#f00">x</span> = T.scalar()
+<span style="color:#00f">y</span> = T.scalar()
+<span style="color:#0f0">z</span> = x + y</pre></code>
+  </section>
+
+  <section onenter="ttt_previous">
+    <script>
+      DAG(
+      [{label:"x", color:"#f00"}, {label:"y", color:"#00f"}, {label:"z", color:"#0f0"},
+       {label:"add", radius:50}],
+      [["x","add"],["y","add"],["add","z"]],"xy",
+      [0.5,0.65],
+      "xa")
+    </script>
+    <left>First Example</left><br/>
+    <code><pre>
+<span style="color:#f00">x</span> = T.scalar()
+<span style="color:#00f">y</span> = T.scalar()
+<span style="color:#0f0">z</span> = x + y</pre></code><br/>
+    <icode>'add'</icode> is an <b>Op</b>.
+  </section>
+
+
+  <section>
+    <left>Ops in 1 slide</left><br/>
+    Ops are the building blocks of the computation graph<br/><br/>
+    <div>
+    They (usually) define:
+    <ul>
+      <li>A computation (given inputs)</li>
+      <li>A partial gradient <small>(given inputs and output gradients)</small></li>
+      <li>C/CUDA code that does the computation</li>
+    </ul>
+    </div>
+
+  </section>
+
+  <section onenter="ttt_previous">
+    <script>
+      DAG(
+      [{label:"x", color:"#f00"}, {label:"y", color:"#00f"}, {label:"z", color:"#0f0"},
+       {label:"add", radius:50}],
+      [["x","add"],["y","add"],["add","z"]],"xy",
+      [0.5,0.65],
+      "xa")
+    </script>
+    <left>First Example</left><br/>
+    <code><pre>
+<span style="color:#f00">x</span> = T.scalar()
+<span style="color:#00f">y</span> = T.scalar()
+<span style="color:#0f0">z</span> = x + y
+f = theano.function([x,y],z)
+f(2,8) <span style="color:#290"># 10</span></pre></code><br/>
+  </section>
+
+  <section>
+    <left>A 5 line Neural Network <small>(evaluator)</small></left><br/>
+    <code><pre>
+<span style="color:#f00">x</span> = T.vector(<span style="color:#d93">'x'</span>)
+<span style="color:#00f">W</span> = T.matrix(<span style="color:#d93">'weights'</span>)
+<span style="color:#f0f">b</span> = T.vector(<span style="color:#d93">'bias'</span>)
+<span style="color:#0f0">z</span> = T.nnet.softmax(T.dot(x,W) + b)
+f = theano.function([x,W,b],z)</pre></code><br/>
+  </section>
+
+  <section onenter="ttt_previous">
+    <script>
+      DAG(
+      [{label:"a"}, {label:"b"}, {label:"c"},{label:"d"}],
+      "ab,bc,cd","ad",
+      [0.5,0.7],
+      "xa")
+    </script>
+    <left>A parenthesis about The Graph</left><br/>
+    <code><pre>
+a = T.vector()
+b = f(a)
+c = g(b)
+d = h(c)
+full_fun = theano.function([a],d) <span style="color:#290"># h(g(f(a)))</span>
+part_fun = theano.function([c],d) <span style="color:#290"># h(c)</span></pre></code><br/>
+  </section>
+
+  <section>
+    <left>Remember the chain rule?</left><br/>
+    \(\newcommand{\dd}[2]{\frac{\partial #1}{\partial #2}} \)
+    $$ \dd{f}{z} = \dd{f}{a} \dd{a}{z} $$
+    $$ \dd{f}{z} = \dd{f}{a} \dd{a}{b} \dd{b}{c} ... \dd{x}{y} \dd{y}{z} $$
+  </section>
+
+  <section onenter="ttt_previous">
+    <script>
+      DAG(
+      [{label:"x"}, {label:"2"},{label:"pow", color:"green", radius:50},
+       {label:"y"}],
+      "x:pow,pow:y,2:pow","2x",
+      [0.5,0.7],
+      "xa")
+    </script>
+
+    <left><icode>T.grad<icode></left><br/>
+    <code><pre>x = T.scalar()
+y = x ** 2</pre></code></span>
+  </section>
+
+  <section onenter="ttt_previous">
+    <script>
+      DAG(
+      [{label:"x"}, {label:"mul", color:"green", radius:50},
+       {label:"2"},{label:"pow", color:"green", radius:50},
+       {label:"g"}, {label:"y"}],
+      "x:pow,pow:y,x:mul,2:mul,mul:g,2:pow","2x",
+      [0.5,0.7],
+      "xa")
+    </script>
+
+    <left><icode>T.grad<icode></left><br/>
+    <code><pre>x = T.scalar()
+y = x ** 2
+g = T.grad(y, x) <span style="color:#290"># 2*x</pre></code></span>
+  </section>
+
+
+  <section onenter="ttt_previous">
+
+    <left><icode>T.grad<icode></left><br/>
+    $$ \dd{f}{z} = \dd{f}{a} \dd{a}{b} \dd{b}{c} ... \dd{x}{y} \dd{y}{z} $$
+    <script>
+      DAG(
+      [{label:"x"}, {label:"sum", color:"green", radius:50},
+       {label:"2"},{label:"pow", color:"green", radius:50},
+       {label:"tanh", color:"green", radius:50}, {label:"y"}],
+      "x:pow,pow:tanh,tanh:sum,2:pow,sum:y","",
+      [0.5,0.7],
+      "xa")
+    </script>
+  </section>
+
+  <section>
+    <left><icode>T.grad<icode> take home</left><br/>
+    You don't really need to think about the gradient anymore.
+    <ul>
+      <li>all you need is a <b>scalar</b> cost</li>
+      <li>some parameters</li>
+      <li>and a call to <icode>T.grad</icode></li>
+    </ul>
+  </section>
+
+
+  <section>
+    <left>Shared variables <br/><small>(or, wow, sending things to the GPU is long)</small></left> <br/>
+    Data reuse is made through `shared` variables.
+    <code><pre><span style="color:red">initial_W</span> = uniform(-k,k,(n_in, n_out)))
+<span style="color:purple">W</span> = theano.shared(value=<span style="color:red">initial_W</span>, name=<span style="color:#d93">"W"</span>)</pre></code><br/>
+    That way it sits in the `right` memory spots <br/><small>(e.g. on the GPU if that's where your computation happens)</small>
+  </section>
+
+  <section>
+    <left>Shared variables</left> <br/>
+    Shared variables act like any other node:
+    <code><pre>prediction = T.dot(x,<span style="color:purple">W</span>) + b
+cost = T.sum((prediction - target)**2)
+gradient = T.<span style="color:#21f">grad</span>(cost, <span style="color:purple">W</span>)</pre></code><br/><br/>
+    You can compute stuff, take gradients.
+  </section>
+  <section>
+    <left>Shared variables : updating</left> <br/>
+    <small>Most importantly, you can:</small> <br/><em>update their value</em>,
+    during a function call:<br/>
+    <code><pre>
+<span style="color:#a21">gradient</span> = T.grad(cost, <span style="color:purple">W</span>)
+<span style="color:#21f">update_list</span> = [(<span style="color:purple">W</span>, <span style="color:purple">W</span> - lr * <span style="color:#a21">gradient</span>)]
+<span style="color:red">f</span> = theano.function(
+       [x,y,lr],[cost],
+       <span style="color:#21f">updates=update_list</span>)</pre></code><br/><br/>
+    Remember, <icode>theano.function</icode> only builds a function. <br/>
+    <code><pre><span style="color:#290"># this updates W</span>
+<span style="color:red">f</span>(minibatch_x, minibatch_y, learning_rate)</pre></code>
+  </section>
+
+<!--
+  <section id="fooba2r" onenter="ttt_previous">
+    <script>
+      DAG(
+      [{label:"A"},{label:"B"},{label:"C"},{label:"D"}],
+      "AB,BC,AC,AD",
+      "",
+      [0.75,0.5],
+      "A")
+    </script>
+    This is a test 2;
+  </section>
+  <section id="fooba2ar" onenter="ttt_previous">
+    <script>
+      DAG(
+      [{label:"A"},{label:"D"}],
+      "AD",
+      "",
+      [0.75,0.5],
+      "A")
+    </script>
+    This is a test 2;
+  </section>
+
+<section>
+    \(test\left(\frac{x}{y}\right)\)
+    $$test\left(\frac{x}{y}\right)$$
+    <code>
+      <pre>
+x = T.vector()
+y = T.scalar()
+z = x * y
+      </pre>
+    </code>
+  </section>
+-->
+</div>
+<script>build();</script>
+</body>
