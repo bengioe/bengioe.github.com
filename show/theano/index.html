@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Theano: a short practical guide</title>
+  <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+  <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+  <script src="show.js"></script>
+
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+<div id="pres">
+
+
+  <section>
+    <h1>Theano</h1>
+    <h4>A short practical guide</h4><br/><br/>
+    Emmanuel Bengio
+
+  </section>
+
+  <section>
+    <left>What is Theano?</left><br/>
+    <ul>
+      <li>A language</li>
+      <li>A compiler</li>
+      <li>A Python library</li>
+    </ul><br/>
+    <code>
+      <pre><codekw>import</codekw> theano
+<codekw>import</codekw> theano.tensor <codekw>as</codekw> T</pre>
+    </code><br/>
+  </section>
+
+  <section>
+    <left>What is Theano?</left><br/>
+    What you really do:
+    <ul>
+      <li>Build graphs of computation (w/ input nodes)</li>
+      <li>Automatically compute gradients through it<br/> </li>
+    </ul>
+    <code>
+      <pre>gradient = T.grad(cost, parameter)</pre>
+    </code><br/>
+    <ul>
+      <li>Feed some data</li>
+      <li>Get results!</li>
+    </ul>
+    <br/>
+
+  </section>
+
+  <section onenter="ttt_previous">
+    <script>
+      DAG(
+      [{label:"x", color:"#f00"}],"","",
+      [0.75,0.25],
+      "xa")
+    </script>
+    <left>First Example</left><br/>
+    <code><pre><codered>x</codered> = T.scalar(<codestr>'x'</codestr>)</pre></code>
+  </section>
+
+  <section onenter="ttt_previous">
+    <script>
+      DAG(
+      [{label:"x", color:"#f00"}, {label:"y", color:"#00f"}],
+      "","xy",
+      [0.75,0.25],
+      "xa")
+    </script>
+    <left>First Example</left><br/>
+    <code><pre><codered>x</codered> = T.scalar(<codestr>'x'</codestr>)
+<codeblue>y</codeblue> = T.scalar(<codestr>'y'</codestr>)</pre></code>
+  </section>
+
+  <section onenter="ttt_previous">
+    <script>
+      DAG(
+      [{label:"x", color:"#f00"}, {label:"y", color:"#00f"}, {label:"z", color:"#0f0"}],
+      "xz,yz","xy",
+      [0.5,0.65],
+      "xa")
+    </script>
+    <left>First Example</left><br/>
+    <code><pre>
+<codered>x</codered> = T.scalar(<codestr>'x'</codestr>)
+<codeblue>y</codeblue> = T.scalar(<codestr>'y'</codestr>)
+<codegrn>z</codegrn> = x + y</pre></code>
+  </section>
+
+  <section onenter="ttt_previous">
+    <script>
+      DAG(
+      [{label:"x", color:"#f00"}, {label:"y", color:"#00f"}, {label:"z", color:"#0f0"},
+       {label:"add", radius:50}],
+      [["x","add"],["y","add"],["add","z"]],"xy",
+      [0.5,0.65],
+      "xa")
+    </script>
+    <left>First Example</left><br/>
+    <code><pre>
+<codered>x</codered> = T.scalar(<codestr>'x'</codestr>)
+<codeblue>y</codeblue> = T.scalar(<codestr>'y'</codestr>)
+<codegrn>z</codegrn> = x + y</pre></code><br/>
+    <icode>'add'</icode> is an <b>Op</b>.
+  </section>
+
+
+  <section>
+    <left>Ops in 1 slide</left><br/>
+    Ops are the building blocks of the computation graph<br/><br/>
+    <div>
+    They (usually) define:
+    <ul>
+      <li>A computation (given inputs)</li>
+      <li>A partial gradient <small>(given inputs and output gradients)</small></li>
+      <li>C/CUDA code that does the computation</li>
+    </ul>
+    </div>
+
+  </section>
+
+  <section onenter="ttt_previous">
+    <script>
+      DAG(
+      [{label:"x", color:"#f00"}, {label:"y", color:"#00f"}, {label:"z", color:"#0f0"},
+       {label:"add", radius:50}],
+      [["x","add"],["y","add"],["add","z"]],"xy",
+      [0.5,0.65],
+      "xa")
+    </script>
+    <left>First Example</left><br/>
+    <code><pre>
+<codered>x</codered> = T.scalar()
+<codeblue>y</codeblue> = T.scalar()
+<codegrn>z</codegrn> = x + y
+f = theano.function([x,y],z)
+f(2,8) <codecomm># 10</codecomm></pre></code><br/>
+  </section>
+
+  <section>
+    <left>A 5 line Neural Network <small>(evaluator)</small></left><br/>
+    <code><pre>
+<codered>x</codered> = T.vector(<codestr>'x'</codestr>)
+<codeblue>W</codeblue> = T.matrix(<codestr>'weights'</codestr>)
+<codepink>b</codepink> = T.vector(<codestr>'bias'</codestr>)
+<codegrn>z</codegrn> = T.nnet.softmax(T.dot(x,W) + b)
+f = theano.function([x,W,b],z)</pre></code><br/>
+  </section>
+
+  <section onenter="ttt_previous">
+    <script>
+      DAG(
+      [{label:"a"}, {label:"b"}, {label:"c"},{label:"d"}],
+      "ab,bc,cd","ad",
+      [0.5,0.7],
+      "xa")
+    </script>
+    <left>A parenthesis about The Graph</left><br/>
+    <code><pre>
+a = T.vector()
+b = f(a)
+c = g(b)
+d = h(c)
+full_fun = theano.function([a],d) <codecomm># h(g(f(a)))</codecomm>
+part_fun = theano.function([c],d) <codecomm># h(c)</codecomm></pre></code><br/>
+  </section>
+
+  <section>
+    <left>Remember the chain rule?</left><br/>
+    \(\newcommand{\dd}[2]{\frac{\partial #1}{\partial #2}} \)
+    $$ \dd{f}{z} = \dd{f}{a} \dd{a}{z} $$
+    $$ \dd{f}{z} = \dd{f}{a} \dd{a}{b} \dd{b}{c} ... \dd{x}{y} \dd{y}{z} $$
+  </section>
+
+  <section onenter="ttt_previous">
+    <script>
+      DAG(
+      [{label:"x"}, {label:"2"},{label:"pow", color:"green", radius:50},
+       {label:"y"}],
+      "x:pow,pow:y,2:pow","2x",
+      [0.5,0.7],
+      "xa")
+    </script>
+
+    <left><icode>T.grad<icode></left><br/>
+    <code><pre>x = T.scalar()
+y = x ** 2</pre></code></span>
+  </section>
+
+  <section onenter="ttt_previous">
+    <script>
+      DAG(
+      [{label:"x"}, {label:"mul", color:"green", radius:50},
+       {label:"2"},{label:"pow", color:"green", radius:50},
+       {label:"g"}, {label:"y"}],
+      "x:pow,pow:y,x:mul,2:mul,mul:g,2:pow","2x",
+      [0.5,0.7],
+      "xa")
+    </script>
+
+    <left><icode>T.grad<icode></left><br/>
+    <code><pre>x = T.scalar()
+y = x ** 2
+g = T.grad(y, x) <codecomm># 2*x</codecomm></pre></code>
+  </section>
+
+
+  <section onenter="ttt_previous">
+
+    <left><icode>T.grad<icode></left><br/>
+    $$ \dd{f}{z} = \dd{f}{a} \dd{a}{b} \dd{b}{c} ... \dd{x}{y} \dd{y}{z} $$
+    <script>
+      DAG(
+      [{label:"x"}, {label:"sum", color:"green", radius:50},
+       {label:"2"},{label:"pow", color:"green", radius:50},
+       {label:"tanh", color:"green", radius:50}, {label:"y"}],
+      "x:pow,pow:tanh,tanh:sum,2:pow,sum:y","",
+      [0.5,0.7],
+      "xa")
+    </script>
+  </section>
+
+  <section>
+    <left><icode>T.grad</icode> take home</left><br/>
+    You don't really need to think about the gradient anymore.
+    <ul>
+      <li>all you need is a <b>scalar</b> cost</li>
+      <li>some parameters</li>
+      <li>and a call to <icode>T.grad</icode></li>
+    </ul>
+  </section>
+
+
+  <section>
+    <left>Shared variables <br/><small>(or, wow, sending things to the GPU is long)</small></left> <br/>
+    Data reuse is made through `shared` variables.
+    <code><pre><codered>initial_W</codered> = uniform(-k,k,(n_in, n_out)))
+<codepurple>W</codepurple> = theano.shared(value=<codered>initial_W</codered>, name=<codestr>"W"</codestr>)</pre></code><br/>
+    That way it sits in the `right` memory spots <br/><small>(e.g. on the GPU if that's where your computation happens)</small>
+  </section>
+
+  <section>
+    <left>Shared variables</left> <br/>
+    Shared variables act like any other node:
+    <code><pre>prediction = T.dot(x,<codepurple>W</codepurple>) + b
+cost = T.sum((prediction - target)**2)
+gradient = T.<codeblue>grad</codeblue>(cost, <codepurple>W</codepurple>)</pre></code><br/><br/>
+    You can compute stuff, take gradients.
+  </section>
+
+  <section>
+    <left>Shared variables : updating</left> <br/>
+    <small>Most importantly, you can:</small> <br/><em>update their value</em>,
+    during a function call:<br/>
+    <code><pre>
+<codeorange>gradient</codeorange> = T.grad(cost, <codepurple>W</codepurple>)
+<codeblue>update_list</codeblue> = [(<codepurple>W</codepurple>, <codepurple>W</codepurple> - lr * <codeorange>gradient</codeorange>)]
+<codered>f</codered> = theano.function(
+       [x,y,lr],[cost],
+       <codeblue>updates=update_list</codeblue>)</pre></code><br/><br/>
+    Remember, <icode>theano.function</icode> only builds a function. <br/>
+    <code><pre><codecomm># this updates W</codecomm>
+<codered>f</codered>(minibatch_x, minibatch_y, learning_rate)</pre></code>
+  </section>
+
+  <section>
+    <left>Shared variables : dataset</left> <br/>
+    If dataset is small enough, use a shared variable
+    <code><pre>
+index = T.iscalar()
+<codeorange>X</codeorange> = theano.shared(data[<codestr>'X'</codestr>])
+<codeorange>Y</codeorange> = theano.shared(data[<codestr>'Y'</codestr>])
+f = theano.function(
+       [index,lr],[cost],
+       updates=update_list,
+       <codeblue>givens</codeblue>={x:<codeorange>X</codeorange>[index], y:<codeorange>Y</codeorange>[index]})</pre></code><br/><br/>
+    You can also take slices:
+    <code>X[<codepink>idx</codepink>:<codepink>idx+n</codepink>]</code>
+  </section>
+
+
+
+
+
+  
+
+
+  <section>
+    <left>Printing things</left> <br/>
+    There are 3 major ways of printing values:
+    <ol>
+      <li>When building the graph</li>
+      <li>During execution</li>
+      <li>After execution</li>
+    </ol><br/>
+    <small>And you should do a lot of 1 and 3</small>
+  </section>
+
+  <section>
+    <left>Printing things when building the graph</left> <br/>
+    Use a test value
+    <code><pre>
+<codecomm># activate the testing</codecomm>
+<codepink>theano.config.compute_test_value</codepink> = <codestr>'raise'</codestr>
+x = T.matrix()
+x.<codepink>tag.test_value</codepink> = numpy.ones((mbs, n_in))
+y = T.vector()
+y.<codepink>tag.test_value</codepink> = numpy.ones((mbs,))
+    </pre></code><br/>
+    <small>You should do this when designing your model to:<br/>
+    <ul>
+      <li>test shapes</li>
+      <li>test types</li>
+      <li>...</li>
+</ul></small>
+  </section>
+
+
+<!----- Printing ------>
+
+  <section>
+    <script>
+      DAG(
+      [{label:"a"}, {label:"Print", color:"green", radius:50},
+       {label:"b"}],
+      "a:Print,Print:b","",
+      [0.2,0.7],
+      "xa")
+    </script>
+
+    <left>Printing things when executing a function</left> <br/>
+    Use the <icode>Print</icode> Op.
+    <code><pre>
+<codekw>from</codekw> theano.printing <codekw>import</codekw> <codepink>Print</codepink>
+a = T.nnet.sigmoid(h)
+<codecomm># this prints "a:", a.__str__ and a.shape</codecomm>
+a = <codepink>Print</codepink>(<codestr>"a"</codestr>,[<codestr>"__str__"</codestr>,<codestr>"shape"</codestr>])(a)
+b = something(a)</pre></code><br/>
+    <small>
+      <div style="padding-left:10em;">
+    <ul>
+      <li><icode>Print</icode> acts like the identity</li>
+      <li>gets activated whenever <codepink>b</codepink> "requests" <codepink>a</codepink></li>
+      <li>anything in <icode>dir(numpy.ndarray)</icode> goes</li>
+    </ul>
+    </div></small>
+  </section>
+
+
+  <section>
+    <left>Printing things after execution</left> <br/>
+    Add the node to the outputs<br/>
+    <code><pre>
+theano.function([...],
+                [..., <codepink>some_node</codepink>])</pre></code><br/>
+    <small>
+    Any node can be an ouput <verysmall>(even inputs!)</verysmall><br/>
+    You should do this:<br/>
+    <ul>
+      <li>To aquire statistics</li>
+      <li>To monitor gradients, activations...</li>
+      <li>With moderation*</li>
+    </ul><br/>
+    <verysmall>*especially on GPU, as this sends all the data back to the CPU at each call</verysmall>
+    </small>
+  </section>
+
+  <section>
+    <left>Shapes, dimensions, and shuffling</left> <br/>
+    You can reshape arrays:<br/>
+    <code>b = a.reshape((n,m,p))</code><br/>
+    As long as their <em>flat</em> dimension is \(n\times m \times p\)
+
+  </section>
+
+  <section>
+    <left>Shapes, dimensions, and shuffling</left> <br/>
+    You can change the dimension order:<br/>
+    <code><pre>
+<codecomm># b[i,k,j] == a[i,j,k]</codecomm>
+b = a.dimshuffle(0,2,1)</pre></code><br/>
+  </section>
+
+  <section>
+    <left>Shapes, dimensions, and shuffling</left> <br/>
+    You can also add <b>broadcast dimensions</b>:<br/>
+    <code><pre>
+<codecomm># a.shape == (n,m)</codecomm>
+b = a.dimshuffle(0,<codestr>'x'</codestr>,1)
+<codecomm># or </codecomm>
+b = a.reshape([n,1,m])</pre></code><br/>
+    This allows you to do elemwise* operations <br/> with <icode>b</icode> as if it was \(n\times p \times m\), where <br/>\(p\) can be arbitrary.<br/>
+    <small>* e.g. addition, multiplication</small>
+  </section>
+
+  <section>
+    <left>Broadcasting</left>
+
+    <img src="http://deeplearning.net/software/theano/_images/bcast.png"></img><br/>
+    <small> If an array lacks dimensions to match the other operand, the broadcast pattern is automatically expended to the <b>left</b> ( (F,) \(\to\) (T, F), \(\to\) (T, T, F), ...), <br/>  to match the number of dimensions<br/>
+    (But you should always do it yourself)</small><br/>
+
+  </section>
+
+
+
+
+
+<!----- Profiling ------>
+
+
+  <section>
+    <left>Profiling</left><br/>
+    When compiling a function, ask theano to profile it:
+    <code>f = theano.function(..., <codepink>profile=True</codepink>)</code><br/><br/>
+    when exiting python, it will print the profile.
+  </section>
+
+
+<section>
+  <left>Profiling</left>
+  <span style="font-size: 0.45em">
+  <code><pre>Class
+---
+<% time> < sum %>< apply time>< time per call>< type><#call>  <#apply> < Class name>
+  30.4%    30.4%      10.202s       5.03e-05s     C   202712       4   theano.sandbox.cuda.basic_ops.GpuFromHost
+  23.8%    54.2%       7.975s       1.31e-05s     C   608136      12   theano.sandbox.cuda.basic_ops.GpuElemwise
+  18.3%    72.5%       6.121s       3.02e-05s     C   202712       4   theano.sandbox.cuda.blas.GpuGemv
+   6.0%    78.5%       2.021s       1.99e-05s     C   101356       2   theano.sandbox.cuda.blas.GpuGer
+   4.1%    82.6%       1.368s       2.70e-05s     Py   50678       1   theano.tensor.raw_random.RandomFunction
+   3.5%    86.1%       1.172s       1.16e-05s     C   101356       2   theano.sandbox.cuda.basic_ops.HostFromGpu
+   3.1%    89.1%       1.027s       2.03e-05s     C    50678       1   theano.sandbox.cuda.dnn.GpuDnnSoftmaxGrad
+   3.0%    92.2%       1.019s       2.01e-05s     C    50678       1   theano.sandbox.cuda.nnet.GpuSoftmaxWithBias
+   2.8%    94.9%       0.938s       1.85e-05s     C    50678       1   theano.sandbox.cuda.basic_ops.GpuCAReduce
+   2.4%    97.4%       0.810s       7.99e-06s     C   101356       2   theano.sandbox.cuda.basic_ops.GpuAllocEmpty
+   0.8%    98.1%       0.256s       4.21e-07s     C   608136      12   theano.sandbox.cuda.basic_ops.GpuDimShuffle
+   0.5%    98.6%       0.161s       3.18e-06s     Py   50678       1   theano.sandbox.cuda.basic_ops.GpuFlatten
+   0.5%    99.1%       0.156s       1.03e-06s     C   152034       3   theano.sandbox.cuda.basic_ops.GpuReshape
+   0.2%    99.3%       0.075s       4.94e-07s     C   152034       3   theano.tensor.elemwise.Elemwise
+   0.2%    99.5%       0.073s       4.83e-07s     C   152034       3   theano.compile.ops.Shape_i
+   0.2%    99.7%       0.070s       6.87e-07s     C   101356       2   theano.tensor.opt.MakeVector
+   0.1%    99.9%       0.048s       4.72e-07s     C   101356       2   theano.sandbox.cuda.basic_ops.GpuSubtensor
+   0.1%   100.0%       0.029s       5.80e-07s     C    50678       1   theano.tensor.basic.Reshape
+   0.0%   100.0%       0.015s       1.47e-07s     C   101356       2   theano.sandbox.cuda.basic_ops.GpuContiguous
+   ... (remaining 0 Classes account for   0.00%(0.00s) of the runtime)
+</pre></code></span><br/>
+  Finding the culprits:
+<code>  24.1%    24.1%       4.537s       1.59e-04s   28611     2   GpuFromHost(x)</code>
+</section>
+
+<section>
+  <left>Profiling</left>
+  A few common names:
+  <span style="font-size: 0.8em">
+  <ul>
+    <li><b>Gemm/Gemv</b>, matrix\(\times\)matrix / matrix\(\times\)vector</li>
+    <li><b>Ger</b>, matrix update</li>
+    <li><b>GpuFromHost</b>, data CPU \(\to\) GPU</li>
+    <li><b>HostFromGPU</b>, the opposite</li>
+    <li><b>[Advanced]Subtensor</b>, indexing</li>
+    <li><b>Elemwise</b>, element-per-element Ops (+, -, exp, log, ...)</li>
+
+  </ul>
+  </span>
+</section>
+
+
+
+
+
+<!----- SCAN ------>
+
+<section>
+  <left>Loops and recurrent models</left>
+  Theano has loops, but can be quite complicated.<br/>
+  <verysmall>So here's a simple example</verysmall><br/>
+  <code><pre>
+x = T.vector(<codestr>'x'</codestr>)
+n = T.scalar(<codestr>'n'</codestr>)
+<codekw>def</codekw> <codeblue>inside_loop</codeblue>(acc, i, n):
+  <codekw>return</codekw> acc + i * n
+
+values, _ = theano.<codepink>scan(</codepink>
+     fn = <codeblue>inside_loop</codeblue>,
+     outputs_info=[T.zeros(1)],
+     sequences=[x],
+     non_sequences=[n],
+     n_steps=x.shape[0]<codepink>)</codepink>
+
+sum_of_n_times_x = values[<codered>-1</codered>]</pre></code>
+
+</section>
+
+<section>
+  <left>Loops and recurrent models</left>
+  Line by line:<br/>
+  <code><pre>
+<codekw>def</codekw> <codeblue>inside_loop</codeblue>(acc, i, n):
+  <codekw>return</codekw> acc + i * n</pre></code>
+
+  <ul>
+    <li>This function is called at each iteration</li>
+    <li>It takes the arguments in this order:<br/>
+    <ol>
+      <li>Sequences (default: <icode>seq[t]</icode>)</li>
+      <li>Outputs (default: <icode>out[t-1]</icode>)</li>
+      <li>Others (no indexing)</li>
+    </ol>
+    </li>
+    <li>It returns <icode>out[t]</icode> for each output</li>
+    <li><small>There can be many sequences, many outputs and many others:<br/></li></ul>
+      <code>f(seq_0[t], seq_1[t], .., out_0[t-1], out_1[t-1], .., other_0, other_1, ..): <br/></code></small>
+</section>
+
+
+
+
+<section>
+  <left>Loops and recurrent models</left>
+  <code><pre>
+values, _ = theano.<codepink>scan(</codepink>
+<codecomm># ... </codecomm>
+sum_of_n_times_x = values[<codered>-1</codered>]</pre></code>
+</section>
+
+
+<section>
+  <left>A list of things I haven't talked about<br/><verysmall>(but which you can totally search for)</verysmall></left>
+  
+  <span style="font-size: 0.8em">
+  <ul>
+    <li>Random numbers (<icode>T.shared_randomstreams</icode>)</li>
+    <li>Convolutions (<icode>T.nnet.conv)</icode></li>
+    <li>Printing/Drawing graphs (<icode>theano.printing</icode>)</li>
+    <li>Jacobians, Rop, Lop and Hessian-free</li>
+    <li>Dealing with NaN/inf</li>
+    <li>Extending theano (implementing Ops and types)</li>
+    <li>Saving models to files (<icode>pickle</icode>)</li>
+
+  </ul>
+  </span>
+</section>
+
+
+
+<!--
+  <section id="fooba2r" onenter="ttt_previous">
+    <script>
+      DAG(
+      [{label:"A"},{label:"B"},{label:"C"},{label:"D"}],
+      "AB,BC,AC,AD",
+      "",
+      [0.75,0.5],
+      "A")
+    </script>
+    This is a test 2;
+  </section>
+  <section id="fooba2ar" onenter="ttt_previous">
+    <script>
+      DAG(
+      [{label:"A"},{label:"D"}],
+      "AD",
+      "",
+      [0.75,0.5],
+      "A")
+    </script>
+    This is a test 2;
+  </section>
+
+<section>
+    \(test\left(\frac{x}{y}\right)\)
+    $$test\left(\frac{x}{y}\right)$$
+    <code>
+      <pre>
+x = T.vector()
+y = T.scalar()
+z = x * y
+      </pre>
+    </code>
+  </section>
+-->
+</div>
+<script>build();</script>
+</body>

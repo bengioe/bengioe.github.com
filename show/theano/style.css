@@ -10,6 +10,10 @@ section {
     pointer-events: none;
 }
 
+verysmall{
+    font-size:0.5em;
+    }
+
 section h1 {
     font: 3em arial;
 }
@@ -23,6 +27,7 @@ left {
 icode{
     font-family: monospace;
     font-size: 1.2em;
+    color: #349;
 }
 
 pre {
@@ -38,7 +43,7 @@ code {
     pointer-events: none;
 }
 
-ul {
+ul,ol {
     display: inline-block;
     text-align: left;
 }
@@ -48,6 +53,7 @@ svg ellipse{
 }
 svg text{
     font: 0.8em arial;
+    pointer-events: none;
 }
 
 svg{
@@ -64,3 +70,17 @@ svg line{
     top: 0;
     z-index:-1;
 }
+
+
+
+/* code colors */
+
+codekw {   color:orange }
+codered{   color:#f00 }
+codegrn{   color:#0f0 }
+codeblue{  color:#00f }
+codecomm{  color:#290 }
+codepurple{color:purple }
+codestr{   color:#a73 }
+codeorange{color:#f90 }
+codepink{  color:#f0f }
