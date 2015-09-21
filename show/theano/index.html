@@ -37,11 +37,11 @@
 
   <section>
     <left>What is Theano?</left><br/>
-    What you really do:
+    What you really do:<br/>
     <ul>
       <li>Build graphs of computation (w/ input nodes)</li>
       <li>Automatically compute gradients through it<br/> </li>
-    </ul>
+    </ul><br/>
     <code>
       <pre>gradient = T.grad(cost, parameter)</pre>
     </code><br/>
@@ -114,7 +114,7 @@
     <left>Ops in 1 slide</left><br/>
     Ops are the building blocks of the computation graph<br/><br/>
     <div>
-    They (usually) define:
+    They (usually) define:<br/>
     <ul>
       <li>A computation (given inputs)</li>
       <li>A partial gradient <small>(given inputs and output gradients)</small></li>
@@ -227,7 +227,7 @@ g = T.grad(y, x) <codecomm># 2*x</codecomm></pre></code>
 
   <section>
     <left><icode>T.grad</icode> take home</left><br/>
-    You don't really need to think about the gradient anymore.
+    You don't really need to think about the gradient anymore.<br/>
     <ul>
       <li>all you need is a <b>scalar</b> cost</li>
       <li>some parameters</li>
@@ -238,7 +238,7 @@ g = T.grad(y, x) <codecomm># 2*x</codecomm></pre></code>
 
   <section>
     <left>Shared variables <br/><small>(or, wow, sending things to the GPU is long)</small></left> <br/>
-    Data reuse is made through `shared` variables.
+    Data reuse is made through `shared` variables.<br/>
     <code><pre><codered>initial_W</codered> = uniform(-k,k,(n_in, n_out)))
 <codepurple>W</codepurple> = theano.shared(value=<codered>initial_W</codered>, name=<codestr>"W"</codestr>)</pre></code><br/>
     That way it sits in the `right` memory spots <br/><small>(e.g. on the GPU if that's where your computation happens)</small>
@@ -246,7 +246,7 @@ g = T.grad(y, x) <codecomm># 2*x</codecomm></pre></code>
 
   <section>
     <left>Shared variables</left> <br/>
-    Shared variables act like any other node:
+    Shared variables act like any other node:<br/>
     <code><pre>prediction = T.dot(x,<codepurple>W</codepurple>) + b
 cost = T.sum((prediction - target)**2)
 gradient = T.<codeblue>grad</codeblue>(cost, <codepurple>W</codepurple>)</pre></code><br/><br/>
@@ -292,7 +292,7 @@ f = theano.function(
 
   <section>
     <left>Printing things</left> <br/>
-    There are 3 major ways of printing values:
+    There are 3 major ways of printing values:<br/>
     <ol>
       <li>When building the graph</li>
       <li>During execution</li>
@@ -303,7 +303,7 @@ f = theano.function(
 
   <section>
     <left>Printing things when building the graph</left> <br/>
-    Use a test value
+    Use a test value<br/>
     <code><pre>
 <codecomm># activate the testing</codecomm>
 <codepink>theano.config.compute_test_value</codepink> = <codestr>'raise'</codestr>
@@ -334,7 +334,7 @@ y.<codepink>tag.test_value</codepink> = numpy.ones((mbs,))
     </script>
 
     <left>Printing things when executing a function</left> <br/>
-    Use the <icode>Print</icode> Op.
+    Use the <icode>Print</icode> Op.<br/>
     <code><pre>
 <codekw>from</codekw> theano.printing <codekw>import</codekw> <codepink>Print</codepink>
 a = T.nnet.sigmoid(h)
@@ -449,13 +449,13 @@ b = a.reshape([n,1,m])</pre></code><br/>
    0.0%   100.0%       0.015s       1.47e-07s     C   101356       2   theano.sandbox.cuda.basic_ops.GpuContiguous
    ... (remaining 0 Classes account for   0.00%(0.00s) of the runtime)
 </pre></code></span><br/>
-  Finding the culprits:
+  Finding the culprits:<br/>
 <code>  24.1%    24.1%       4.537s       1.59e-04s   28611     2   GpuFromHost(x)</code>
 </section>
 
 <section>
   <left>Profiling</left>
-  A few common names:
+  A few common names:<br/>
   <span style="font-size: 0.8em">
   <ul>
     <li><b>Gemm/Gemv</b>, matrix\(\times\)matrix / matrix\(\times\)vector</li>
@@ -482,13 +482,13 @@ b = a.reshape([n,1,m])</pre></code><br/>
   <code><pre>
 x = T.vector(<codestr>'x'</codestr>)
 n = T.scalar(<codestr>'n'</codestr>)
-<codekw>def</codekw> <codeblue>inside_loop</codeblue>(acc, i, n):
-  <codekw>return</codekw> acc + i * n
+<codekw>def</codekw> <codeblue>inside_loop</codeblue>(x_t, acc, n):
+  <codekw>return</codekw> acc + x_t * n
 
 values, _ = theano.<codepink>scan(</codepink>
      fn = <codeblue>inside_loop</codeblue>,
-     outputs_info=[T.zeros(1)],
      sequences=[x],
+     outputs_info=[T.zeros(1)],
      non_sequences=[n],
      n_steps=x.shape[0]<codepink>)</codepink>
 
@@ -500,9 +500,9 @@ sum_of_n_times_x = values[<codered>-1</codered>]</pre></code>
   <left>Loops and recurrent models</left>
   Line by line:<br/>
   <code><pre>
-<codekw>def</codekw> <codeblue>inside_loop</codeblue>(acc, i, n):
-  <codekw>return</codekw> acc + i * n</pre></code>
-
+<codekw>def</codekw> <codeblue>inside_loop</codeblue>(x_t, acc, n):
+  <codekw>return</codekw> acc + x_t * n</pre></code>
+  <br/>
   <ul>
     <li>This function is called at each iteration</li>
     <li>It takes the arguments in this order:<br/>
@@ -518,15 +518,96 @@ sum_of_n_times_x = values[<codered>-1</codered>]</pre></code>
 </section>
 
 
-
-
 <section>
   <left>Loops and recurrent models</left>
   <code><pre>
 values, _ = theano.<codepink>scan(</codepink>
 <codecomm># ... </codecomm>
-sum_of_n_times_x = values[<codered>-1</codered>]</pre></code>
+sum_of_n_times_x = values[<codered>-1</codered>]</pre></code><br/>
+  <icode>values</icode> is the list/tensor of all outputs through time.<br/>
+<small>
+  <code><pre>values = [ [out_0[1], out_0[2], ...],
+           [out_1[1], out_1[2], ...],
+           ...]</pre></code><br/>
+  <small>If there's only one output then <icode>values = [out[1], out[2], ...]</icode></small>
+</small>
 </section>
+
+
+
+
+<section>
+  <left>Loops and recurrent models</left>
+  <code><pre>
+     fn = <codeblue>inside_loop</codeblue>,</pre></code><br/>
+  The loop function we saw earlier<br/><br/>
+  <code><pre>
+     sequences=[x],   </pre></code><br/>
+  Sequences are indexed over their <b>first</b> dimension.
+</section>
+
+
+
+
+<section>
+  <left>Loops and recurrent models</left><br/>
+  If you want <icode>out[t-1]</icode> to be an input to the loop function<br/>
+  then you need to give <icode>out[0]</icode>.<br/>
+  <code><pre>
+     outputs_info=[T.zeros(1)], </pre></code><br/><br/>
+  If you don't want <icode>out[t-1]</icode> as an input to the loop,<br/>
+  pass <icode>None</icode> in outputs_info:<br/>
+  <code><pre>
+     outputs_info=[None, out_1[0], out_2[0], ...], </pre></code><br/>
+  <br/>
+  <small>You can also do more advanced "tapping", i.e. get <icode>out[t-k]</icode> </small>
+</section>
+
+
+<section>
+  <left>Loops and recurrent models</left><br/>
+  <code><pre>
+     non_sequences=[n],</pre></code><br/>
+  Variables that are used inside the loop (but not indexed).<br/><br/>
+
+  <code><pre>
+     n_steps=x.shape[0])</pre></code><br/>
+  The number of steps that the loop should do.<br/>
+  <small>Note that it is possible to do a "while" loop</small>
+</section>
+
+
+
+<section>
+  <left>Loops and recurrent models</left>
+  The whole thing again<br/>
+  <code><pre>
+x = T.vector(<codestr>'x'</codestr>)
+n = T.scalar(<codestr>'n'</codestr>)
+<codekw>def</codekw> <codeblue>inside_loop</codeblue>(x_t, acc, n):
+  <codekw>return</codekw> acc + x_t * n
+
+values, _ = theano.<codepink>scan(</codepink>
+     fn = <codeblue>inside_loop</codeblue>,
+     sequences=[x],
+     outputs_info=[T.zeros(1)],
+     non_sequences=[n],
+     n_steps=x.shape[0]<codepink>)</codepink>
+
+sum_of_n_times_x = values[<codered>-1</codered>]</pre></code>
+
+</section>
+
+<section>
+  <left>A simple RNN</left><BR/>
+
+  $$ h_t = \mbox{tanh}(xW_x + h_{t-1}W_h + b_h) $$
+  $$ \hat{y} = \mbox{softmax}(h_{T}W_y + b_y) $$
+
+  <code><pre></pre></code>
+</section>
+
+<!----- THE END ----->
 
 
 <section>

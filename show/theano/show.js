@@ -67,10 +67,15 @@ function ttt_previous(s){
 
 
 document.onkeydown = function(e){
-    if (e.keyCode >=35 && e.keyCode <=39){
+    console.log(e.keyCode);
+    if (e.keyCode >=35 && e.keyCode <=40){
         if (e.keyCode == 39) // right
             gotoSlide(Math.min(sections.length-1,current_section+1));
         if (e.keyCode == 37) // left
+            gotoSlide(Math.max(0,current_section-1));
+        if (e.keyCode == 40) // up
+            gotoSlide(Math.min(sections.length-1,current_section+1));
+        if (e.keyCode == 38) // down
             gotoSlide(Math.max(0,current_section-1));
         if (e.keyCode == 36) // home
             gotoSlide(0);
