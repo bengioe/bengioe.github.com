@@ -57,7 +57,7 @@
     <script>
       DAG(
       [{label:"x", color:"#f00"}],"","",
-      [0.75,0.25],
+      [0.8,0.25],
       "xa")
     </script>
     <left>First Example</left><br/>
@@ -69,7 +69,7 @@
       DAG(
       [{label:"x", color:"#f00"}, {label:"y", color:"#00f"}],
       "","xy",
-      [0.75,0.25],
+      [0.8,0.25],
       "xa")
     </script>
     <left>First Example</left><br/>
@@ -270,7 +270,7 @@ gradient = T.<codeblue>grad</codeblue>(cost, <codepurple>W</codepurple>)</pre></
 
   <section>
     <left>Shared variables : dataset</left> <br/>
-    If dataset is small enough, use a shared variable
+    If dataset is small enough, use a shared variable<br/>
     <code><pre>
 index = T.iscalar()
 <codeorange>X</codeorange> = theano.shared(data[<codestr>'X'</codestr>])
@@ -282,7 +282,6 @@ f = theano.function(
     You can also take slices:
     <code>X[<codepink>idx</codepink>:<codepink>idx+n</codepink>]</code>
   </section>
-
 
 
 
@@ -416,7 +415,7 @@ b = a.reshape([n,1,m])</pre></code><br/>
 
   <section>
     <left>Profiling</left><br/>
-    When compiling a function, ask theano to profile it:
+    When compiling a function, ask theano to profile it:<br/>
     <code>f = theano.function(..., <codepink>profile=True</codepink>)</code><br/><br/>
     when exiting python, it will print the profile.
   </section>
@@ -513,7 +512,7 @@ sum_of_n_times_x = values[<codered>-1</codered>]</pre></code>
     </ol>
     </li>
     <li>It returns <icode>out[t]</icode> for each output</li>
-    <li><small>There can be many sequences, many outputs and many others:<br/></li></ul>
+    <li><small>There can be many sequences, many outputs and many others:</li></ul><br/>
       <code>f(seq_0[t], seq_1[t], .., out_0[t-1], out_1[t-1], .., other_0, other_1, ..): <br/></code></small>
 </section>
 
@@ -601,11 +600,114 @@ sum_of_n_times_x = values[<codered>-1</codered>]</pre></code>
 <section>
   <left>A simple RNN</left><BR/>
 
-  $$ h_t = \mbox{tanh}(xW_x + h_{t-1}W_h + b_h) $$
+  $$ h_t = \mbox{tanh}(x_tW_x + h_{t-1}W_h + b_h) $$
   $$ \hat{y} = \mbox{softmax}(h_{T}W_y + b_y) $$
 
-  <code><pre></pre></code>
+  <code><pre><codekw>def</codekw> <codeblue>loop</codeblue>(<codegrn>x_t</codegrn>, <codered>h_tm1</codered>, <codepurple>W_x, W_h, b_h</codepurple>):
+  <codekw>return</codekw> T.tanh(T.dot(x_t,W_x) +
+                T.dot(h_tm1, W_h) +
+                b_h)
+
+values,_ = theano.scan(<codeblue>loop</codeblue>,
+    [<codegrn>x</codegrn>], [<codered>T.zeros(n_hidden)</codered>], <codepurple>parameters</codepurple>)
+
+y_hat = values[-1]</pre></code>
 </section>
+
+<section>
+  <left>Dimshuffle and minibatches</left><BR/>
+  Usually you want to use minibatches (\(x_{it}\in \mathbb{R}^k\)):<br/>
+  <code><pre><codecomm># shape: (batch size, sequence length, k)</codecomm>
+x = T.tensor3(<codestr>'x'</codestr>)
+<codecomm># define loop ...</codecomm>
+v,u = theano.scan(loop,
+  [x.dimshuffle(1,0,2)],
+  ...)</pre></code><br/>
+  This way scan iterates over the "sequence" axis.<br/>
+  <small>Otherwise it would iterate over the minibatch examples.</small>
+</section>
+
+<section>
+  <left>A few tips: make classes</left><BR/>
+  Make reusable classes for layers, or parts of your model:<br/>
+  <code><pre><codekw>class</codekw> <codeblue>HiddenLayer</codeblue>:
+  <codekw>def</codekw> <codeblue>__init__</codeblue>(self, x, n_in, n_hidden):
+    self.W = shared(...)
+    self.b = shared(...)
+    self.output = activation(T.dot(x,W)+b)</pre></code><br/>
+   
+</section>
+
+<section>
+  <left>A few tips: save often</left><BR/>
+  It's really easy with theano/python to save and reload data:<br/>
+  <code><pre><codekw>class</codekw> <codeblue>HiddenLayer</codeblue>:
+  <codekw>def</codekw> <codeblue>__init__</codeblue>(self, x, n_in, n_hidden):
+    <codecomm># ...</codecomm>
+    self.params = [self.W, self.b]
+  <codekw>def</codekw> <codeblue>save_params</codeblue>(self):
+     <codekw>return</codekw> [i.get_value() <codekw>for</codekw> i <codekw>in</codekw> self.params]
+  <codekw>def</codekw> <codeblue>load_params</codeblue>(self, values):
+     <codekw>for</codekw> p, value <codekw>in</codekw> <codepurple>zip</codepurple>(self.params, values):
+       p.set_value(value)</pre></code><br/>
+   
+</section>
+
+<section>
+  <left>A few tips: save often</left><BR/>
+  It's really easy with theano/python to save and reload data:<br/>
+  <code><pre><codekw>import</codekw> cPickle <codekw>as</codekw> pickle
+<codecomm># save </codecomm>
+pickle.dump(model.save_params(),
+            file(<codestr>'model_params.pkl'</codestr>, <codestr>'w'</codestr>)
+<codecomm># load </codecomm>
+model.load_params(
+  pickle.load(
+    file(<codestr>'model_params.pkl'</codestr>,<codestr>'r'</codestr>)))</pre></code><br/>
+   You can even save whole models and functions with <icode>pickle</icode> but that requires a few additional tricks.
+</section>
+
+<section>
+  <left>A few tips: error messages</left><br/>
+  <small><code><pre>ValueError: GpuElemwise. Input dimension mis-match.  Input 1 (indices
+        start at 0) has shape[1] == 256, but the output's size on that axis is 128.
+Apply node that caused the error: GpuElemwise{add,no_inplace}
+        (&lt;CudaNdarrayType(float32, matrix)>,
+         &lt;CudaNdarrayType(float32, matrix)>)
+Inputs types: [CudaNdarrayType(float32, matrix),
+               CudaNdarrayType(float32, matrix)]
+  </pre></code></small><br/>
+  It tells us we're trying to multiply \(AB\) but \(A:(n, 128), B:(256, m)\)
+</section>
+
+<section>
+  <left>A few tips: floatX</left><br/>
+  Theano has a default float precision:<br/>
+<icode>theano.config.floatX</icode><br/><br/>
+For now GPUs can only use float32:<br/>
+<small><code style="width:70%">TensorType(float32, matrix) cannot store a value of dtype float64 without risking loss of precision. If you do not mind this loss, you can: 1) explicitly cast your data to float32, or 2) set "allow_input_downcast=True" when calling "function".</code></small>
+
+
+</section>
+
+<section>
+  <left>A few tips: read the doc</left><br/>
+<small><a href="http://deeplearning.net/software/theano/library/tensor/basic.html">http://deeplearning.net/software/theano/library/tensor/basic.html</a></small><br/>
+</section>
+
+
+
+
+<!--- the typical mnist tutorial -->
+
+<section>
+  <left>MNIST</left><br/>
+  <small> <a href="http://deeplearning.net/data/mnist/mnist.pkl.gz">http://deeplearning.net/data/mnist/mnist.pkl.gz</a></small><br/><br/>
+  *Opens console*
+
+</section>
+
+
 
 <!----- THE END ----->
 
