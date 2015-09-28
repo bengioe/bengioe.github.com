@@ -247,7 +247,7 @@
 
   <section>
     <left>Recurrent neural networks</left><br/>
-    Instead of a single input, look at a sequence of \(T\) inputs:
+    Instead of a single input, look at a sequence of \(T\) inputs:<br/>
     <ul>
       <li>Look at  \(x_t\)</li>
       <li><b>Also</b> look at \(h_{t-1}\)</li>
@@ -264,7 +264,7 @@
 
     <section>
     <left>Recurrent neural networks</left><br/>
-    Problems of such a simple recurrent unit:
+    Problems of such a simple recurrent unit:<br/>
     <ul>
       <li>Gradient descent difficult</li>
       <li>Hard to learn long term dependencies</li>
@@ -364,6 +364,37 @@
     <img src="results1.png"></img><br/>
     <small>This is the % of good digits, <b>not</b> the percent of good answers</small>
   </section>
+
+  <section>
+    <left>Learning To Execute</left><br/>
+    Why this paper is nice:<br/>
+    <ul>
+      <li><b>Code</b> is a <em>reasonable</em> domain for RNNs</li>
+      <li>With a simple model you can learn typical low-level stuff</li>
+      <li>It's a nice showcase of curriculum learning</li>
+    </ul>
+  </section>
+
+
+  <section>
+    <left>Question!</left><br/>
+    <h2>What seems wrong with this approach?</h2>
+  </section>
+
+  <section>
+    <left>Things that seem wrong for me</left><br/>
+    <ul>
+      <li>Linear time programs</li>
+      <li>Constant memory programs</li>
+      <li>Still no "reasoning" RNNs</li>
+      <li>Too much tinkering of the curriculum learning</li>
+      <li>It seems to take a while to train</li>
+    </ul>
+  </section>
+
+  <section>
+    <left>Questions?</left><br/>
+    <small>Thank you for your attention</small>
 </div>
 <script>build();</script>
 </body>
