@@ -202,4 +202,4 @@ function DAG(nodes, links, invisible_links, centerpos,centeredNode){
     section.force = force;
 }
 
-//setInterval(function(){location.reload();}, 5000)
+//setInterval(function(){location.reload();}, 1000)

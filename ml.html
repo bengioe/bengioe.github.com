@@ -11,6 +11,27 @@
   <div id="principal">
     <div id="ptext">
       <center>
+	<h2>A list of things which do not seem to stick in my long term memory</h2>
+	<hr width="30%">
+      </center>
+
+      <br/>
+      The expected value of a function of some variable is:
+      $$\mathbb{E}_X (f(X)) = \int_{-\infty}^{\infty} f(X)dP$$
+      but in the discrete case it's just:
+      $$\mathbb{E}_X (f(X)) = \sum_x f(x)p(x)$$
+      for many variables:
+      $$\mathbb{E}_{X_1,X_2,...} (f(X_1,X_2,...)) = \sum_{x_1,x_2,...} f(x_1,x_2,...)p(x_1,x_2,...)$$
+      <br/>
+      The joint probability of many variables can be decomposed in terms of a product of conditional probabilities:
+      $$p(x_1,x_2,...) = p(x_1)\times p(x_2|x_1) \times p(x_3|x_2,x_1) ... $$
+      and you can of course reorder the variables as you wish.
+
+
+      <h3>emacs</h3>
+      Rename a file: <code>C-x C-j RET; R; *name* RET; C-x k RET;</code> <br/>
+
+      <center>
 	<h2>A (succint) reference on (parts of) Machine Learning</h2>
 	<hr width="30%">
       </center>

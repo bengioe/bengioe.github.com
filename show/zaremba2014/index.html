@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Learning to Execute</title>
+  <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+  <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+  <script src="https://wzrd.in/standalone/function-plot@1.12.1"></script>
+
+
+  <script src="../show.js"></script>
+  <link rel="stylesheet" type="text/css" href="../style.css">
+  <script>
+    MathJax.Hub.Config({ TeX: { extensions: ["color.js"] }});
+  </script>
+</head>
+<body>
+
+<div id="pres">
+
+  <section>
+    <h2>Learning to Execute</h2>
+    <h4>by <em>Wojciech Zaremba</em> and <em>Ilya Sutskever</em></h4><br/><br/><br/><br/>
+    <br/>
+    Presented by Emmanuel Bengio
+  $$
+  \definecolor{black}{RGB}{0,0,0}
+  \definecolor{blue}{RGB}{0,0,255}
+  $$
+  </section>
+
+  <section>
+    <left>My plan</left><br/>
+    <ul>
+      <li>Teach you machine learning <small>(but really fast)</small></li>
+      <li>Teach you deep learning <small>(also really fast)</small></li>
+      <li>Explain recurrent neural nets</li>
+      <li>Explain the paper</li>
+      <li>Criticize the paper</li>
+    </ul><br/><br/>
+  </section>
+
+  <section>
+    <left>Machine Learning</left><br/>
+    The very broad goal of machine learning is to learn an <codered><b>algorithm</b></codered> given a distribution of <codegrn><b>examples</b></codegrn> and a <codeblue><b>measure</b></codeblue> of performance.
+    $${\color{red}\mathcal{F}} = \mbox{argmin}_f \; {\color{blue}\mathcal{L}}\left(f,{\color{green}\mathcal{D}}\right)$$
+  </section>
+
+  <section>
+    <left>Machine Learning</left><br/>
+    A very typical way of phrasing the problem is using parameterized functions:
+    $${\color{red}\mathcal{F}} = \mbox{argmin}_f \; {\color{blue}\mathcal{L}}\left(f,{\color{green}\mathcal{D}}\right)$$
+    $$\Leftrightarrow$$
+    $${\color{red}\theta} = \mbox{argmin}_{\color{red}\theta} \; {\color{blue}\mathcal{L}}\left(f_{\color{red}\theta},{\color{green}\mathcal{D}}\right)$$
+    <small>and now begins the fun of inventing parameterized functions.</small>
+  </section>
+
+  <section>
+    <left>Linear model</left><br/>
+    Probably the simplest parameterized function/model of them all:
+    $$f(x) = ax + b$$
+    There are 2 parameters \(a\) and \(b\)
+    $$\theta = \left\{ a,b \right\}$$
+  </section>
+
+  <section>
+    <left>Minimizing loss functions</left><br/>
+    A very typical way of phrasing optimisation is <br/>
+    to minimize the <codeblue>expected</codeblue> loss
+    $$
+    {\color{red}\mathcal{F}} = \mbox{argmin}_f \;
+    {\color{blue}\mathbb{E}}_{(x,y)\sim {\color{green}\mathcal{D}}}
+    \{\mathcal{L}(f(x),y)\}
+    $$
+    but we don't have access to <b>infinite data</b>!
+  </section>
+
+  <section>
+    <left>Minimizing loss functions</left><br/>
+    The <b>i.i.d. assumption</b> allows us to approximate the expectation:
+    $${\color{blue}\mathbb{E}}(\mathcal{L}) \approx \sum_{x,y} \mathcal{L}(f(x,\theta),y) $$
+    and then it's easy* to minimize this.<br/><br/>
+    <verysmall>* but by easy I mean really really hard in practice</verysmall>
+  </section>
+
+  <section>
+    <left>Minimizing loss functions</left><br/>
+    $${\color{blue}\mathbb{E}}(\mathcal{L}) \approx \sum_{x,y} \mathcal{L}(f(x,\theta),y) $$
+    One of the many ways of minimizing this is called <br/> <b>gradient descent</b>.
+  </section>
+
+  <section>
+    <left>Gradient descent</left><br/>
+    All you need to do is follow <codeblue>the curve</codeblue>!
+    <div id="quadratic"> </div>
+    <script>functionPlot({
+      target: '#quadratic',
+      xDomain: [-2,2],
+      yDomain: [-1,4],
+      disableZoom: true,
+      data: [{
+      fn: 'x^2',
+      derivative: {
+      fn: '2x',
+      updateOnMouseMove: true
+      }
+      }]})</script>
+    \(\newcommand{\dd}[2]{\frac{\partial #1}{\partial #2}} \)
+    $$\theta_t \leftarrow \theta_{t-1} - \epsilon {\color{blue}\dd{\mathcal{L}}{\theta}}$$
+  </section>
+
+
+
+  <section>
+    <left>Question!</left><br/>
+    <h2>What do you do when you have <br/>*a lot* a data?</h2>
+
+
+  </section>
+
+
+
+
+  <section>
+    <left>Stochastic gradient descent</left><br/>
+    Instead of waiting for the whole gradient, update a little bit for each example <small>(or a bunch of them, a minibatch)</small>
+    $$\theta_t \leftarrow \theta_{t-1} - \epsilon {\color{blue}\dd{\mathcal{L}_i}{\theta}}$$
+    <small>This is typically more efficient in terms of learning speed</small>
+  </section>
+
+
+
+
+
+
+  <section>
+    <left>Deep Learning</left><br/>
+    <h3>What is <em>Deep</em> Learning?</h3><br/><br/>
+  </section>
+
+  <section>
+    <left>Deep Learning</left><br/>
+    <h3>What is <em>Deep</em> Learning?</h3><br/>
+    DL typically refers to a class of model:<br/>
+    <b>Stacked Non-Linearities of Biased Linear Mappings</b><br/><br/>
+    <small>But nobody calls them that way</small>
+  </section>
+
+  <section>
+    <left>Deep Learning</left><br/>
+    <h3>What is <em>Deep</em> Learning?</h3><br/>
+    DL typically refers to a class of model:<br/>
+    <b>Stacked Artificial Neural Networks</b><br/><br/>
+    <small>also called <em>Layers</em> in DL talk</small>
+  </section>
+
+  <section>
+    <left>Deep Learning</left><br/>
+    There are many kinds of layers:<br/>
+    <ul>
+      <li>Fully-connected layers
+      $$h = \sigma (xW+b)$$</li>
+      <li>Convolutional layers
+        $$h = \sigma(x\ast W + b)$$</li>
+      <li>... and many more</li>
+    </ul><br/>
+    <small>but most of Deep Learning is just variations of these two</small>
+  </section>
+
+
+
+  <section>
+    <left>Deep Learning</left><br/>
+    In the end you have models that look like this:<br/>
+    $$ f(x) = \sigma_3(\sigma_2(\sigma_1(xW_1+b_1)W_2+b_2)W_3+b_3)$$
+    and so where
+    $$\theta = \{W_1,b_1, ...\}$$
+    <small>and all of this is derivable! So you can easily compute gradients</small>
+  </section>
+
+  <section>
+    <left>Deep Learning</left>
+    <img src="Neural_network_bottleneck_achitecture.svg"></img>
+  </section>
+
+
+  <section>
+    <left>Deep Learning: regression example</left><br/>
+    If you have data \(\mathcal{D}= \{(x,y), ...\}\) <br/> and want to minimize the square loss
+    $$ \mathcal{L} = \sum_{x,y\in \mathcal{D}} \sum_i (f(x)_i - y_i)^2 $$
+    Then do stochastic gradient descent:
+    
+    $$\theta := \theta - \epsilon {\color{blue}\nabla_{\theta}\mathcal{L}_i}$$
+    <small>Given the right \(\epsilon\) and initialization of \(\theta\), you will converge.</small>
+  </section>
+
+  <section>
+    <left>Deep Learning: why?</left><br/>
+  </section>
+  <section>
+    <left>Deep Learning: why?</left><br/>
+    <ol>
+      <li>It works™<span style="display:inline-block;width:14em;"></span></li>
+    </ol>
+  </section>
+  <section>
+    <left>Deep Learning: why?</left><br/>
+    <ol>
+      <li>It works™<span style="display:inline-block;width:14em;"></span></li>
+      <li>It does feature learning for you</li>
+    </ol>
+  </section>
+  <section>
+    <left>Deep Learning: why?</left><br/>
+    <ol>
+      <li>It works™<span style="display:inline-block;width:14em;"></span></li>
+      <li>It does feature learning for you</li>
+      <li>It's not mathematically tricky</li> 
+      <li>Many libraries</li>
+      <li>Many cool applications <small>and more everyday</small></li>
+    </ol>
+  </section>
+
+
+  <section>
+    <left>Deep Learning: how?</left><br/>
+    There are dozens of interpretations for neural nets
+    <span style="font-size:0.9em">
+    <ul>
+      <li>Distributed Representations</li>
+      <li>Massive parameter space</li>
+      <li>They look like the brain!</li>
+      <li>Depth enlarges the function space exponentially</li>
+    </ul>
+    </span>
+
+  </section>
+
+  <section>
+    <left>Question!</left><br/>
+    <h2>How would you solve a time series problem?</h2>
+    <small>(with a neural network)</small>
+
+
+  </section>
+
+  <section>
+    <left>Recurrent neural networks</left><br/>
+    Instead of a single input, look at a sequence of \(T\) inputs:
+    <ul>
+      <li>Look at  \(x_t\)</li>
+      <li><b>Also</b> look at \(h_{t-1}\)</li>
+      <li>\(h_T\) is a function of \(x_{1:T}\)</li>
+    </ul><br/>
+    <img src="rnn.svg"></img>
+  </section>
+
+  <section>
+    <left>Recurrent neural networks</left><br/>
+    Simple way of computing \(h_t\):
+    $$h_t = \mbox{tanh}(x W_x + h_{t-1}W_h + b) $$
+  </section>
+
+    <section>
+    <left>Recurrent neural networks</left><br/>
+    Problems of such a simple recurrent unit:
+    <ul>
+      <li>Gradient descent difficult</li>
+      <li>Hard to learn long term dependencies</li>
+    </ul>
+    $$h_t = \mbox{tanh}(x W_x + h_{t-1}W_h + b) $$
+  </section>
+
+
+
+  <section>
+    <left>Recurrent neural networks</left><br/>
+    More complex units:<br/>
+    <img src="lstm_gru.png"></img><br/>
+    <span style="font-size:0.35em">images from Chung, Junyoung, et al. "Empirical evaluation of gated recurrent neural networks on sequence modeling." arXiv preprint arXiv:1412.3555 (2014).</span>
+  </section>
+
+  <section>
+    <left>Long Short-Term Memory units</left><br/>
+    $$ \begin{align*}
+    i_t &= \sigma(x_t W_i + h_{t-1}U_i + b_i)\\
+    \tilde{c} &= \tanh(x_c W_c + h_{t-1}U_c +b_c)\\
+    f_t &= \sigma(x W_f + h_{t-1} U_f + b_f) \\
+    C_t &= i_t \otimes \tilde{c} + f_t \otimes C_{t-1}\\
+    o_t &= \sigma(xW_o+h_{t-1}U_o+C_tV_o+b_o) \\
+    h_t &= o_t \otimes \tanh(C_t)
+    \end{align*}
+    $$
+    ... simple right?
+  </section>
+
+  <section>
+    <left>Long Short-Term Memory units</left><br/>
+    <img src="LSTM3-chain.png" style="width:80%"></img><br/>
+    <verysmall>Taken from Cristopher Olah @ http://colah.github.io/posts/2015-08-Understanding-LSTMs/</verysmall>
+  </section>
+
+  <section>
+    <left>Learning To Execute</left><br/>
+  </section>
+
+  <section>
+    <left>Learning To Execute</left><br/>
+    Objective:<br/>
+    <ul>
+      <li>Predict output of a piece of Python code</li>
+      <li><icode>=,+,-,*,+=,for,if,else,print</icode></li>
+    </ul>
+    <img src="programs.png"></img>
+  </section>
+
+  <section>
+    <left>Learning To Execute</left><br/>
+    Constraints:<br/>
+    <ul>
+      <li>Don't do any feature extraction</li>
+      <li>Don't use too much prior knowledge</li>
+      <li>Code musn't require more than \(n\) bits of memory</li>
+      <li>Code must take linear time</li>
+    </ul>
+  </section>
+
+  <section>
+    <left>Learning To Execute</left><br/>
+    Input and output strings are converted to this form:<br/>
+    $$ x_t = [0,...,0,1,0,...,0]$$
+    the non-zero index corresponds to the ASCII value<br/>
+    <small>So you <em>could</em> feed Caesar codings to the model!</small>
+  </section>
+
+  <section>
+    <left>Learning To Execute</left><br/>
+    Plug this into LSTMs!<br/>
+    You need an <em>encoder</em> and a <em>decoder</em>:<br/>
+    <img src="lstm_enc_dec.svg"></img><br/>
+    Run decoder until it outputs "end-of-line".
+  </section>
+
+  <section>
+    <left>Learning To Execute</left><br/>
+    Curriculum Learning:<br/>
+    <ul>
+      <li>Start with small simple programs</li>
+      <li>Progressively complexify task</li>
+    </ul>
+  </section>
+
+  <section>
+    <left>Learning To Execute</left><br/>
+    Addition:<br/>
+    <img src="results2.png"></img><br/>
+    <small>This is the % of good digits, <b>not</b> the percent of good answers</small>
+  </section>
+
+  <section>
+    <left>Learning To Execute</left><br/>
+    Overall:<br/>
+    <img src="results1.png"></img><br/>
+    <small>This is the % of good digits, <b>not</b> the percent of good answers</small>
+  </section>
+</div>
+<script>build();</script>
+</body>
+</html>
