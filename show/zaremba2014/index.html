@@ -4,16 +4,23 @@
   <meta charset="utf-8">
   <title>Learning to Execute</title>
   <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+  <!--<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>-->
   <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
   <script src="https://wzrd.in/standalone/function-plot@1.12.1"></script>
 
 
   <script src="../show.js"></script>
   <link rel="stylesheet" type="text/css" href="../style.css">
-  <script>
-    MathJax.Hub.Config({ TeX: { extensions: ["color.js"] }});
-  </script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({TeX : {extensions:["color.js"]}});
+  /*MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    TeX : {extensions:["color.js"]},
+    jax: ["input/TeX","output/HTML-CSS"],
+    tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+  });*/
+</script>
+<script type="text/javascript" src="MathJax-2.4-latest/MathJax.js?config=TeX-AMS_HTML"></script>
 </head>
 <body>
 
@@ -45,6 +52,7 @@
   <section>
     <left>Machine Learning</left><br/>
     The very broad goal of machine learning is to learn an <codered><b>algorithm</b></codered> given a distribution of <codegrn><b>examples</b></codegrn> and a <codeblue><b>measure</b></codeblue> of performance.
+    $$\mathcal{F}$$
     $${\color{red}\mathcal{F}} = \mbox{argmin}_f \; {\color{blue}\mathcal{L}}\left(f,{\color{green}\mathcal{D}}\right)$$
   </section>
 
