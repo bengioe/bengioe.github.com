@@ -173,7 +173,7 @@
   <section>
     <left>Deep Learning</left><br/>
     In the end you have models that look like this:<br/>
-    $$ f(x) = \sigma_3(\sigma_2(\sigma_1(xW_1+b_1)W_2+b_2)W_3+b_3)$$
+    $$ f(x) = {\color{green}\sigma_3}({\color{blue}\sigma_2}({\color{red}\sigma_1}(x{\color{red}W_1}+{\color{red}b_1}){\color{blue}W_2}+{\color{blue}b_2}){\color{green}W_3}+{\color{green}b_3})$$
     and so where
     $$\theta = \{W_1,b_1, ...\}$$
     <small>and all of this is derivable! So you can easily compute gradients</small>
@@ -187,8 +187,8 @@
 
   <section>
     <left>Deep Learning: regression example</left><br/>
-    If you have data \(\mathcal{D}= \{(x,y), ...\}\) <br/> and want to minimize the square loss
-    $$ \mathcal{L} = \sum_{x,y\in \mathcal{D}} \sum_i (f(x)_i - y_i)^2 $$
+    If you have data \( {\color{green}\mathcal{D}}= \{(x,y), ...\}\) <br/> and want to minimize the square loss
+    $$ \mathcal{L} = \sum_{x,y\in {\color{green}\mathcal{D}}} \sum_i (f(x)_i - y_i)^2 $$
     Then do stochastic gradient descent:
     
     $$\theta := \theta - \epsilon {\color{blue}\nabla_{\theta}\mathcal{L}_i}$$
