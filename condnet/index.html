@@ -1,0 +1,56 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<html>
+<head>
+  <title>Condnets</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({TeX : {extensions:["color.js"]}});
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    TeX : {extensions:["color.js"]},
+    jax: ["input/TeX","output/HTML-CSS"],
+    tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+  });
+</script>
+<script type="text/javascript" src="../show/zaremba2014/MathJax-2.4-latest/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+
+These animations represent the distribution of probabilities learned by the policy network, during training.<br/>
+The x axis is each neuron, the y axis is the probability of sampling a 1 in the block dropout, for a single example (in red), or on average(blue)<br/><br/>
+
+Here is what is it looks like for reinforce:<br/>
+<center>
+<video src="reinforce_1.webm" autoplay controls>
+  video here
+</video></center><br/>
+Here is what it looks like with the other approach, with various degrees of regularization.<br/>
+When penalizing for the difference between the mean activation of the <b>batch</b> for each unit and some rate
+$$\lambda\sum_j^n\|(\frac{1}{m}\sum_i^m \pi_{ij})-\tau\|$$
+where $\pi_{ij}$ is the probability of the sampled policy, $\tau$ is some target rate, $m$ is the batch size and $n$ the number of blocks.<br/>
+<center>
+  $\lambda = 0.1$<br/>
+<video src="exp_with_batchwise_reg0.1.webm" autoplay controls>
+  video here
+</video></center><br/><br/>
+<center>
+  $\lambda = 0.01$<br/>
+<video src="exp_with_batchwise_reg0.01.webm" autoplay controls>
+  video here
+</video></center><br/>
+
+Here is the same thing but when penalizing for the difference between the mean activation all the units of a <b>single example</b> and some rate
+$$\lambda\sum_i^m\|(\frac{1}{n}\sum_j^n \pi_{ij})-\tau\|$$
+<center>
+  $\lambda = 0.1$<br/>
+<video src="exp_with_exawise_reg0.1.webm" autoplay controls>
+  video here
+</video></center><br/><br/>
+<center>
+  $\lambda = 1$<br/>
+<video src="exp_with_exawise_reg1.webm" autoplay controls>
+  video here
+</video></center><br/>
+
+</body>
+</html>
