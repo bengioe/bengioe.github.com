@@ -15,6 +15,15 @@ a {
     color: #569;
 } 
 
+ml > a{
+    color: #090;
+}
+
+
+pl > a, pl{
+    color: #900;
+}
+
 #principal{
     max-width: 70em;
     margin-left: auto;
