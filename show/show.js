@@ -84,6 +84,24 @@ document.onkeydown = function(e){
     }
 };
 
+var touchStart = [0,0]
+
+document.addEventListener('touchstart', function(e){
+    touchStart = [e.changedTouches[0].pageX,
+                  e.changedTouches[0].pageY];
+});
+document.addEventListener('touchend', function(e){
+    var touchEnd = [e.changedTouches[0].pageX,
+                    e.changedTouches[0].pageY];
+    console.log("touchEnd",touchEnd,touchStart);
+    if (touchEnd[0] - touchStart[0] > 150){
+        document.onkeydown({keyCode:37});
+    }
+    else if (touchEnd[0] - touchStart[0] < -150){
+        document.onkeydown({keyCode:39});
+    }
+});
+
 
 function DAG(nodes, links, invisible_links, centerpos,centeredNode){
     var w = $(window).width();
