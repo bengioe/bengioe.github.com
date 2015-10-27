@@ -58,7 +58,7 @@
 
   <section>
     <left>ICI architecture</left><br/>
-    <img src="ici.png" width="50%"></img>
+    <img src="ici.png" height="700"></img>
   </section>
 
   
@@ -83,7 +83,7 @@
   <section>
     <left>Tweaking flags</left><br/>
     To test this, they select random flags, compile and test, 1000 times.<br/>
-    <img src="oflags.png" width="55%"/><br/>
+    <img src="oflags.png" width="750"/><br/>
     A few of the best flags for their benchmark.
   </section>
 
@@ -98,7 +98,7 @@
   <section>
     <left>Transferring flags</left><br/>
     Two similar programs can probably make use of the same flags:<br/>
-    <img src="same_flags.png" width="55%"/>
+    <img src="same_flags.png" width="750"/>
   </section>
 
   <section>
@@ -127,6 +127,12 @@
   <section>
     <left></left><br/>
     <h3>Now we have everything we need to do <br/>machine learning!</h3>
+    <ul>
+      <li>A way to generate data</li>
+      <li>An objective</li>
+      <li>A desired process:<br/>
+      <center>given some program features I want some optimal flags</center></li>
+    </ul>
   </section>
 
 
@@ -174,17 +180,21 @@
       <li>1-nearest-neighbour</li>
       <li>decision tree</li>
     </ul><br/><br/>
-    <h4>1-nearest-neighbour:</h4>
-    Once you have \(q\), sample from it to get some \(x\).<br/>
-    You now have a good set of flags with high-probability!<br/>
+    <b>1-nearest-neighbour:</b><br/>
+    <ol>
+      <li>Get \(q\) from nearest example in training data.</li>
+      <li>Once you have \(q\), sample from it to get some \(x\).</li>
+      <li>You now have a good set of flags with high-probability!</li>
+    </ol>
   </section>
 
   <section>
     <left>The tree approach gone wrong</left><br/>
     The paper uses decision trees to compute the joint
-    $$f(x,t)=P(x,t)$$<br/><br/>
+    $$f(x,t)=P(x,t)$$
+    <small>So given a \(t\), try a bunch of \(x\) until they're good enough...?</small><br/><br/>
     when they should be using them to compute
-    $$x^* = f(t)$$<br/>
+    $$f(t) = x^*$$<br/>
     <small>(which trees are good at!)</small>
   </section>
 
@@ -196,7 +206,7 @@
   </section>
   <section>
     <left>Results</left><br/>
-    <img src="ml_times.png" width="40%"/><br/>
+    <img src="ml_times.png" width="600"/><br/>
     <verysmall>Execution time speedups (a), code size improvements (b) and compilation time
 speedup (c)</verysmall>
   </section>
