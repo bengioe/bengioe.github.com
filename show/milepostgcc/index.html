@@ -150,7 +150,7 @@
     \(q\) is the probability that \(x\) is a good configuration of flags given \(t\)<br/><br/>
     To collect data:<br/>
     <ul>
-      <li>Sample 1000 programs</li>
+      <li>Sample 1000 programs with uniformly random flags</li>
       <li>Keep those at >95% of optimal speedup</li>
     </ul>
 
@@ -160,7 +160,7 @@
   <section>
     <left>Probabilistic approach</left><br/>
     For simplicity they model the distribution as a joint of IID Bernoulli variables:
-    $$P(x|t,\theta) = \prod_i P(x_i|t,\theta)$$
+    $$P(x|t) = \prod_i P(x_i|t)$$
     Given \(q(x | t,\theta)\) for a new \(t_{new}\) we want:
     $$ x^* = \mbox{argmax}_x q(x|t_{new},\theta) $$
     but we can't really do that in a reasonable time.
