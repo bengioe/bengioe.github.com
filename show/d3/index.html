@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>D3: Data-Driven Documents</title>
+  <!---->
+  <script src="jquery-2.1.4.min.js"></script>
+  <!--<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>-->
+  <!--<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>-->
+  <!--http://d3js.org/d3.v3.min.js-->
+  <script src="d3.v3.min.js" charset="utf-8"></script>
+  <!--https://wzrd.in/standalone/function-plot@1.12.1-->
+  <script src="function-plot.js"></script>
+
+
+  <script src="../show.js"></script>
+  <link rel="stylesheet" type="text/css" href="../style.css">
+  <!--
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({TeX : {extensions:["color.js"]}});
+  /*MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    TeX : {extensions:["color.js"]},
+    jax: ["input/TeX","output/HTML-CSS"],
+    tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+  });*/
+</script>
+<script type="text/javascript" src="../zaremba2014/MathJax-2.4-latest/MathJax.js?config=TeX-AMS_HTML"></script>-->
+</head>
+<body>
+
+<div id="pres">
+
+  <section>
+    <h2>D<sup>3</sup>: Data-Driven Documents</h2>
+    <br/>
+    <small>Michael Bostock, Vadim Ogievetsky, and Jeffrey Heer</small>
+    <br/><br/><br/>
+    <br/>
+    Presented by Emmanuel Bengio<br/><br/>
+    <span style="color:#777; font-size:0.8em">
+    <verysmall>
+    <span style="text-align:right;display:block">Use the arrow keys or swipe to navigate</span></verysmall></span>
+  </section>
+
+  <section>
+    <left>Motivation for data visualization</left><br/>
+    <ul>
+      <li>Humans are bad with numbers</li>
+      <li>Humans are better with symbols</li>
+      <li>Humans are even better with images</li>
+    </ul><br/>Images, graphs can represent high dimensional relations
+  </section>
+
+  <section>
+    <left>Motivation for data visualization</left><br/>
+    <script>
+
+    var graph = {nodes:[], links:[]};
+
+    var N = 50;
+    for (var i=0;i<N;i++){
+	graph.nodes[i] = {group:Math.round(Math.random()*4)};
+    }
+    for (var i=0;i<100;i++){
+	graph.links[i] = {source:Math.round(Math.random()*(N-1)),
+			  target:Math.round(Math.random()*(N-1)),
+			  value:Math.random()};
+	    
+    }
+
+      groupLinksGraph(graph);
+
+{
+    var graph = {nodes:[], links:[]};
+
+
+    for (var i=0;i<N;i++){
+	graph.nodes[i] = {group:Math.round(Math.random()*4)};
+    }
+var k = 0;
+    for (var i=0;i<300;i++){
+	var obj = {source:Math.round(Math.random()*(N-1)),
+			  target:Math.round(Math.random()*(N-1)),
+			  value:Math.random()};
+	if (graph.nodes[obj.source].group == 
+	    graph.nodes[obj.target].group || Math.random() > 0.9){
+            graph.links[k++] = obj;
+	}
+	    
+    }
+		     groupLinksGraph(graph);}
+    </script><br/>
+Which of these graphs is uniformly random?
+  </section>
+
+  
+
+  <section>
+    <left>Motivations for D3</left><br/>
+    <ul>
+      <li>Compatibility</li>
+      <li>Debugging</li>
+      <li>Performance</li>
+    </ul>
+  </section>
+
+  <section>
+    <left>Tweaking flags</left><br/>
+    To test this, they select random flags, compile and test, 1000 times.<br/>
+    <img src="oflags.png" width="750"/><br/>
+    A few of the best flags for their benchmark.
+  </section>
+
+
+  <section>
+    <left>Tweaking flags</left><br/>
+    Tweaking flags randomly takes an enormously inappropriate amount of time, but actually yields good results (sometimes).<br/>
+    <img src="random_speedup.png"/>
+  </section>
+
+
+  <section>
+    <left>Transferring flags</left><br/>
+    Two similar programs can probably make use of the same flags:<br/>
+    <img src="same_flags.png" width="750"/>
+  </section>
+
+  <section>
+    <left>What does it all mean?</left><br/>
+    <ul>
+      <li>It's ok to apply some flags to a never <br/>before seen program</li>
+      <li>If we can match programs that look <br/> similar we can use similar flags</li>
+      <li>and maybe expect similar speedups?</li>
+    </ul>
+  </section>
+
+  <section>
+    <left>Question</left><br/>
+    <h2>How would you define a similarity metric for a method's code?</h2>
+  </section>
+
+
+  <section>
+    <left>Question</left><br/>
+    <h2>How would you define a similarity metric for a method's code?</h2><br/>
+
+    Answer: define a bunch of AST/CFG-related features that you can count. <small>Then take Euclidian distance</small> <br/>
+    <img src="features.png"/>
+  </section>
+
+  <section>
+    <left></left><br/>
+    <h3>Now we have everything we need to do <br/>machine learning!</h3>
+    <ul>
+      <li>A way to generate data</li>
+      <li>An objective</li>
+      <li>A desired process:<br/>
+      <center>given some program features I want some optimal flags</center></li>
+    </ul>
+  </section>
+
+
+  <section>
+    <left>Probabilistic approach</left><br/>
+    Want to learn a model:
+    $$q(x | t,\theta)$$
+    where \(x\) is a boolean vector of flags, \(t\) is a feature vector, and \(\theta\) is the parameter set of the distribution.<br/>
+    Then we want to do 1-shot prediction of the flags.
+  </section>
+
+  <section>
+    <left>Probabilistic approach</left><br/>
+    $$q(x | t,\theta)$$
+    \(q\) is the probability that \(x\) is a good configuration of flags given \(t\)<br/><br/>
+    To collect data:<br/>
+    <ul>
+      <li>Sample 1000 programs with uniformly random flags</li>
+      <li>Keep those at >95% of optimal speedup</li>
+    </ul>
+
+  </section>
+
+
+  <section>
+    <left>Probabilistic approach</left><br/>
+    For simplicity they model the distribution as a joint of IID Bernoulli variables:
+    $$P(x|t) = \prod_i P(x_i|t)$$
+    Given \(q(x | t,\theta)\) for a new \(t_{new}\) we want:
+    $$ x^* = \mbox{argmax}_x q(x|t_{new},\theta) $$
+    but we can't really do that in a reasonable time.
+  </section>
+
+  <section>
+    <left>Question</left><br/>
+    <h2>How would you approximate \(x^*\)?</h2>
+    $$ x^* = \mbox{argmax}_x q(x|t_{new},\theta) $$
+    <small>Given a bunch to training examples \((x_i,t_j)\)</small>
+  </section>
+
+  <section>
+    <left>Finding \(q\)</left><br/>
+    The paper proposes two methods for "getting" \(q\):<br/>
+    <ul>
+      <li>1-nearest-neighbour</li>
+      <li>decision tree</li>
+    </ul><br/><br/>
+    <b>1-nearest-neighbour:</b><br/>
+    <ol>
+      <li>Get \(q\) from nearest example in training data.</li>
+      <li>Once you have \(q\), sample from it to get some \(x\).</li>
+      <li>You now have a good set of flags with high-probability!</li>
+    </ol>
+  </section>
+
+  <section>
+    <left>The tree approach gone wrong</left><br/>
+    The paper uses decision trees to compute the joint
+    $$f(x,t)=P(x,t)$$
+    <small>So given a \(t\), try a bunch of \(x\) until they're good enough...?</small><br/><br/>
+    when they should be using them to compute
+    $$f(t) = x^*$$<br/>
+    <small>(which trees are good at!)</small>
+  </section>
+
+  <section>
+    <left>Results</left><br/>
+    They still get appreciable results:<br/>
+    <img src="ml_speedup.png"/>
+
+  </section>
+  <section>
+    <left>Results</left><br/>
+    <img src="ml_times.png" width="600"/><br/>
+    <verysmall>Execution time speedups (a), code size improvements (b) and compilation time
+speedup (c)</verysmall>
+  </section>
+  <section>
+    <left>Flaws of the paper</left><br/>
+    <ul>
+      <li>Their final ML model is overly simple</li>
+      <li>Their tree model is dubious</li>
+      <li>Only capable of deciding flags on a per-file basis?</li>
+      <li>They don't compare themselves (numerically) to other approaches</li>
+    </ul>
+  </section>
+
+  <section>
+    <left>Questions?</left><br/>
+    <small>Thank you for your attention</small>
+  </section>
+
+  <section>
+    <left>Machine Learning reminder</left><br/>
+    The very broad goal of machine learning is to learn an <codered><b>algorithm</b></codered> given a distribution of <codegrn><b>examples</b></codegrn> and a <codeblue><b>measure</b></codeblue> of performance.
+    $${\color{red}\mathcal{F}} = \mbox{argmin}_f \; {\color{blue}\mathcal{L}}\left(f,{\color{green}\mathcal{D}}\right)$$
+  </section>
+
+  <section>
+    <left>Machine Learning reminder</left><br/>
+    A very typical way of phrasing the problem is using parameterized functions:
+    $${\color{red}\mathcal{F}} = \mbox{argmin}_f \; {\color{blue}\mathcal{L}}\left(f,{\color{green}\mathcal{D}}\right)$$
+    $$\Leftrightarrow$$
+    $${\color{red}\theta} = \mbox{argmin}_{\color{red}\theta} \; {\color{blue}\mathcal{L}}\left(f_{\color{red}\theta},{\color{green}\mathcal{D}}\right)$$
+    <small>and now begins the fun of inventing parameterized functions.</small>
+  </section>
+</div>
+<script>build();</script>
+</body>
+</html>
