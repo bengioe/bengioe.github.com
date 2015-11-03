@@ -116,10 +116,6 @@ Which of these graphs is uniformly random?
     </ul>
   </section>
 
-  <section>
-    <left>Question</left><br/>
-    <h3>What (browser) technology would you use?</h3><br/>
-  </section>
 
   <section>
     <left>HTML and CSS</left><br/>
@@ -131,8 +127,23 @@ d3.selectAll(<codestr>"div"</codestr>)
 SVG is part of HTML<br/> <small>(and will be used most of the time)</small>
   </section>
 
+
   <section>
-    <left>HTML and CSS</left><br/>
+    <left>Question</left><br/>
+    Now we want to do nice graphs:
+    <h3>What abstraction mechanism should we use?</h3><br/>
+  </section>
+
+  <section>
+    <left>Question</left><br/>
+    Now we want to do nice graphs:
+    <h3>What abstraction mechanism should we use?</h3><br/>
+    And the answer is...<br/>
+    None!
+  </section>
+
+  <section>
+    <left>HTML and CSS as a representation</left><br/>
     This has countless advantages:<br/>
     <ul>
       <li>No internal scene graph<br/>
@@ -188,7 +199,7 @@ d3.selectAll('.item')
   <section>
     <left>Debugging</left><br/>
     Modern browsers come with an integrated debugger:<br/>
-    <img src="debug.png" width="90%"/>
+    <img src="debug.png" width="90%"/><br/>
     <small>inspecting and understanding the DOM is easy</small>
   </section>
 
@@ -238,7 +249,11 @@ svg.selectAll("rect")
   <section>
     <left>D3 as a tool</left><br/>
     D3 isn't for one liner visualizations.<br/><br/>
-    Instead, it empowers visualization makers <br/> to easily create complex schemes <br/> with minimal, and elegant, code.<br/>
+    Instead, it makes creating visualizations easier by:
+    <ul style="margin-top:0;padding-top:0">
+      <li>allowing to manipulate both data and representation at the same time</li>
+      <li>using familiar and reusable "primitives"</li>
+    </ul>
     <img src="d3.png" width="100%"/>
   </section>
 
