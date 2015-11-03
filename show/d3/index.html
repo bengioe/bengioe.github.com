@@ -52,7 +52,7 @@
     </ul><br/>Images, graphs can represent high dimensional relations
   </section>
 
-  <section>
+  <section onenter="ttt_random">
     <left>Motivation for data visualization</left><br/>
     <script>
 
@@ -79,7 +79,7 @@
 	graph.nodes[i] = {group:Math.round(Math.random()*4)};
     }
 var k = 0;
-    for (var i=0;i<300;i++){
+    for (var i=0;i<400;i++){
 	var obj = {source:Math.round(Math.random()*(N-1)),
 			  target:Math.round(Math.random()*(N-1)),
 			  value:Math.random()};
@@ -98,171 +98,153 @@ Which of these graphs is uniformly random?
 
   <section>
     <left>Motivations for D3</left><br/>
-    <ul>
-      <li>Compatibility</li>
-      <li>Debugging</li>
-      <li>Performance</li>
-    </ul>
-  </section>
-
-  <section>
-    <left>Tweaking flags</left><br/>
-    To test this, they select random flags, compile and test, 1000 times.<br/>
-    <img src="oflags.png" width="750"/><br/>
-    A few of the best flags for their benchmark.
-  </section>
-
-
-  <section>
-    <left>Tweaking flags</left><br/>
-    Tweaking flags randomly takes an enormously inappropriate amount of time, but actually yields good results (sometimes).<br/>
-    <img src="random_speedup.png"/>
-  </section>
-
-
-  <section>
-    <left>Transferring flags</left><br/>
-    Two similar programs can probably make use of the same flags:<br/>
-    <img src="same_flags.png" width="750"/>
-  </section>
-
-  <section>
-    <left>What does it all mean?</left><br/>
-    <ul>
-      <li>It's ok to apply some flags to a never <br/>before seen program</li>
-      <li>If we can match programs that look <br/> similar we can use similar flags</li>
-      <li>and maybe expect similar speedups?</li>
+    <ul style="display:block; text-align:left; margin-left: 30%">
+      <li>Compatibility<br/>
+      <ul class="animate-enter">
+        <li>Reuse existing tech</li>
+        <li>Use X-browser tech </li>
+      </ul></li>
+      <li>Debugging<br/>
+      <ul class="animate-enter">
+        <li>Should be easy</li>
+        <li>Should use existing tools</li>
+      </ul></li>
+      <li>Performance<br/>
+      <ul class="animate-enter">
+        <li>Real-time!</li>
+      </ul></li>
     </ul>
   </section>
 
   <section>
     <left>Question</left><br/>
-    <h2>How would you define a similarity metric for a method's code?</h2>
-  </section>
-
-
-  <section>
-    <left>Question</left><br/>
-    <h2>How would you define a similarity metric for a method's code?</h2><br/>
-
-    Answer: define a bunch of AST/CFG-related features that you can count. <small>Then take Euclidian distance</small> <br/>
-    <img src="features.png"/>
+    <h3>What (browser) technology would you use?</h3><br/>
   </section>
 
   <section>
-    <left></left><br/>
-    <h3>Now we have everything we need to do <br/>machine learning!</h3>
+    <left>HTML and CSS</left><br/>
+    To satisfy this, D3 manipulates only HTML (and CSS)<br/>from a JS library.<br/>
+<code><pre>
+d3.selectAll(<codestr>"div"</codestr>)
+  .style(<codestr>"color"</codestr>,<codestr>"red"</codestr>);
+</pre></code><br/>
+SVG is part of HTML<br/> <small>(and will be used most of the time)</small>
+  </section>
+
+  <section>
+    <left>HTML and CSS</left><br/>
+    This has countless advantages:<br/>
     <ul>
-      <li>A way to generate data</li>
-      <li>An objective</li>
-      <li>A desired process:<br/>
-      <center>given some program features I want some optimal flags</center></li>
+      <li>No internal scene graph<br/>
+      <small>The DOM is the graph!</small></li>
+      <li>Browsers are heavily optimized<br/>
+      <small>No need to rewrite fast 2d libraries</small></li>
+      <li>No need to learn a new framework<br/>
+      <small>Unless you don't know HTML...</small></li>
+      <li>...</li>
     </ul>
   </section>
 
 
   <section>
-    <left>Probabilistic approach</left><br/>
-    Want to learn a model:
-    $$q(x | t,\theta)$$
-    where \(x\) is a boolean vector of flags, \(t\) is a feature vector, and \(\theta\) is the parameter set of the distribution.<br/>
-    Then we want to do 1-shot prediction of the flags.
+    <left>HTML and CSS</left><br/>
+    <small>In a way...<br/>
+    D3 is only a set of convenience functions to manipulate DOM nodes, but:<br/></small>
+    D3 is data-oriented:<br/><br/>
+    it allows you to bind <b>data</b> to the DOM <small>(and vice versa)</small><br/>
+    <span style="font-size: 0.8em">
+    <code><pre>
+&lt;div>
+  &lt;div class='item'>&lt;/div>
+  &lt;div class='item'>&lt;/div>
+  &lt;div class='item'>&lt;/div>
+&lt;/div>
+</pre></code>
+<code><pre>
+
+d3.selectAll('.item')
+  .data([1,2,3])
+  .text(function (d){return d;});
+
+</pre></code>
+<code><pre>
+1
+2
+3
+
+  </pre></code></span>
+         
+  </section>
+
+
+  <section>
+    <left>Compatibility</left><br/>
+    Compatible everywhere, all you need is<br/>
+    a modern browser with JS enabled.<br/><br/>
+    Compatible with any other tools that<br/>
+    work on the DOM (jquery &amp; friends).
   </section>
 
   <section>
-    <left>Probabilistic approach</left><br/>
-    $$q(x | t,\theta)$$
-    \(q\) is the probability that \(x\) is a good configuration of flags given \(t\)<br/><br/>
-    To collect data:<br/>
+    <left>Debugging</left><br/>
+    Modern browsers come with an integrated debugger:<br/>
+    <img src="debug.png" width="90%"/>
+    <small>inspecting and understanding the DOM is easy</small>
+  </section>
+
+  <section>
+    <left>Performance</left><br/>
+    <img src="perf.png" width="90%"/><br/>
+    <verysmall>Flash is close to SOTA since it has hardware acceleration and direct access to low level drawing routines<br/>Also that was in 2011.</verysmall>
+  </section>
+
+  <section>
+    <left>How to D3?</left><br/>
+    <small><code><pre>
+    &lt;div id="graph1">
+    &lt;/div></pre></code></small>
+    <div id="graph1">
+    </div>
+    <small>
+    <div id="code"></div></small>
+    <script id="code1">var svg = d3.select("#graph1")
+    .append("svg").attr({width:400,height:30});
+svg.selectAll("rect")
+     .data([10,20,30]).enter()
+   .append("rect")
+   .attr({
+       x: 0.5,
+       y: function(d, i){return i*10;},
+       width: function(d, i){return d*10;},
+       height: 8,
+       fill: "red",
+       stroke: "black"
+     });</script>
+    <script>
+      $("#code").html("<code><pre>"+$("#code1").html()+"</pre></code>")
+    </script>
+  </section>
+
+  <section>
+    <left>Animations</left>
     <ul>
-      <li>Sample 1000 programs with uniformly random flags</li>
-      <li>Keep those at >95% of optimal speedup</li>
-    </ul>
-
-  </section>
-
-
-  <section>
-    <left>Probabilistic approach</left><br/>
-    For simplicity they model the distribution as a joint of IID Bernoulli variables:
-    $$P(x|t) = \prod_i P(x_i|t)$$
-    Given \(q(x | t,\theta)\) for a new \(t_{new}\) we want:
-    $$ x^* = \mbox{argmax}_x q(x|t_{new},\theta) $$
-    but we can't really do that in a reasonable time.
+      <li>Transitions</li>
+      <li>Forces <small>(attractive, repulsive, link-attractive, etc...)</small></li>
+      <li>React to events</li>
+    </ul><br/>
+    All data-dependent
   </section>
 
   <section>
-    <left>Question</left><br/>
-    <h2>How would you approximate \(x^*\)?</h2>
-    $$ x^* = \mbox{argmax}_x q(x|t_{new},\theta) $$
-    <small>Given a bunch to training examples \((x_i,t_j)\)</small>
+    <left>D3 as a tool</left><br/>
+    D3 isn't for one liner visualizations.<br/><br/>
+    Instead, it empowers visualization makers <br/> to easily create complex schemes <br/> with minimal, and elegant, code.<br/>
+    <img src="d3.png" width="100%"/>
   </section>
 
   <section>
-    <left>Finding \(q\)</left><br/>
-    The paper proposes two methods for "getting" \(q\):<br/>
-    <ul>
-      <li>1-nearest-neighbour</li>
-      <li>decision tree</li>
-    </ul><br/><br/>
-    <b>1-nearest-neighbour:</b><br/>
-    <ol>
-      <li>Get \(q\) from nearest example in training data.</li>
-      <li>Once you have \(q\), sample from it to get some \(x\).</li>
-      <li>You now have a good set of flags with high-probability!</li>
-    </ol>
-  </section>
-
-  <section>
-    <left>The tree approach gone wrong</left><br/>
-    The paper uses decision trees to compute the joint
-    $$f(x,t)=P(x,t)$$
-    <small>So given a \(t\), try a bunch of \(x\) until they're good enough...?</small><br/><br/>
-    when they should be using them to compute
-    $$f(t) = x^*$$<br/>
-    <small>(which trees are good at!)</small>
-  </section>
-
-  <section>
-    <left>Results</left><br/>
-    They still get appreciable results:<br/>
-    <img src="ml_speedup.png"/>
-
-  </section>
-  <section>
-    <left>Results</left><br/>
-    <img src="ml_times.png" width="600"/><br/>
-    <verysmall>Execution time speedups (a), code size improvements (b) and compilation time
-speedup (c)</verysmall>
-  </section>
-  <section>
-    <left>Flaws of the paper</left><br/>
-    <ul>
-      <li>Their final ML model is overly simple</li>
-      <li>Their tree model is dubious</li>
-      <li>Only capable of deciding flags on a per-file basis?</li>
-      <li>They don't compare themselves (numerically) to other approaches</li>
-    </ul>
-  </section>
-
-  <section>
-    <left>Questions?</left><br/>
-    <small>Thank you for your attention</small>
-  </section>
-
-  <section>
-    <left>Machine Learning reminder</left><br/>
-    The very broad goal of machine learning is to learn an <codered><b>algorithm</b></codered> given a distribution of <codegrn><b>examples</b></codegrn> and a <codeblue><b>measure</b></codeblue> of performance.
-    $${\color{red}\mathcal{F}} = \mbox{argmin}_f \; {\color{blue}\mathcal{L}}\left(f,{\color{green}\mathcal{D}}\right)$$
-  </section>
-
-  <section>
-    <left>Machine Learning reminder</left><br/>
-    A very typical way of phrasing the problem is using parameterized functions:
-    $${\color{red}\mathcal{F}} = \mbox{argmin}_f \; {\color{blue}\mathcal{L}}\left(f,{\color{green}\mathcal{D}}\right)$$
-    $$\Leftrightarrow$$
-    $${\color{red}\theta} = \mbox{argmin}_{\color{red}\theta} \; {\color{blue}\mathcal{L}}\left(f_{\color{red}\theta},{\color{green}\mathcal{D}}\right)$$
-    <small>and now begins the fun of inventing parameterized functions.</small>
+    <left>Closing Question</left><br/><br/><br/>
+    What do you really wish there was a cool visualization for?
   </section>
 </div>
 <script>build();</script>

@@ -73,6 +73,16 @@ svg line{
 
 
 
+.animate-enter{
+    display: none;
+    transition: display 1000ms;
+    opacity: 1;
+}
+.animated{
+    opacity: 0;
+}
+
+
 /* code colors */
 
 codekw {   color:orange }

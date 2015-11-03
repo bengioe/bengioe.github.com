@@ -1,5 +1,14 @@
 
 
+d3.selection.prototype.first = function() {
+  return d3.select(this[0][0]);
+};
+d3.selection.prototype.last = function() {
+  var last = this.size() - 1;
+  return d3.select(this[0][last]);
+};
+
+
 var sections;
 var current_section;
 var current_graph = undefined;
@@ -33,15 +42,26 @@ function gotoSlide(s){
 }
 
 function ttt_random(s){
-    var w = $(window).width();
-    var h = $(window).height();
+    console.log("trand",s.graphs);
+    for (var k=0;k<s.graphs.length;k++){
+        var g = s.graphs[k];
+        var w = $(window).width();
+        var h = $(window).height();
+        console.log(g);
 
-    for (var i=0;i<s.nodes.length;i++){
-        s.nodes[i].x =400; w*0.5+5*Math.random();
-        s.nodes[i].y =400; h*0.5+5*Math.random();
-        s.nodes[i].px = s.nodes[i].py = 0;
+        for (var i=0;i<g.nodes.length;i++){
+            //g.nodes[i].x =400; w*0.5+5*Math.random();
+            //g.nodes[i].y =400; h*0.5+5*Math.random();
+            g.nodes[i].px = g.nodes[i].x;
+            g.nodes[i].py = g.nodes[i].y;
+            g.nodes[i].x += 55*(2*Math.random()-1);
+            g.nodes[i].y += 55*(2*Math.random()-1);
+            //g.nodes[i].px = g.nodes[i].x;
+            //g.nodes[i].py = g.nodes[i].y;
+        }
+        g.force.start();
     }
-    s.force.start();
+
 }
 
 function ttt_previous(s){
@@ -65,23 +85,51 @@ function ttt_previous(s){
     current_graph = s;
 }
 
+function nextSlide(){
+    var anim = d3.select(sections[current_section]).selectAll(".animate-enter");
+    if (anim[0].length == 0){
+        gotoSlide(Math.min(sections.length-1,current_section+1));
+    }else{
+        anim.first()
+            .classed("animate-enter",false)
+            .classed("animated", true)
+            .transition()
+            .duration(500)
+            .style("opacity",1)
+    }
+}
+
+function prevSlide(){
+    var anim = d3.select(sections[current_section]).selectAll(".animated");
+    if (anim[0].length == 0){
+        gotoSlide(Math.max(0,current_section-1));
+    }else{
+        anim.last()
+            .classed("animated", false)
+            .classed("animate-enter",true)
+            .style("opacity",0)
+    }
+}
+
 
 document.onkeydown = function(e){
     console.log(e.keyCode);
     if (e.keyCode >=35 && e.keyCode <=40){
         if (e.keyCode == 39) // right
-            gotoSlide(Math.min(sections.length-1,current_section+1));
+            nextSlide();
         if (e.keyCode == 37) // left
-            gotoSlide(Math.max(0,current_section-1));
+            prevSlide()
         if (e.keyCode == 40) // up
-            gotoSlide(Math.min(sections.length-1,current_section+1));
+            nextSlide();
         if (e.keyCode == 38) // down
-            gotoSlide(Math.max(0,current_section-1));
+            prevSlide();
         if (e.keyCode == 36) // home
             gotoSlide(0);
         if (e.keyCode == 35) // end
             gotoSlide(sections.length-1);
     }
+    if (e.keyCode == 82) // r
+        ttt_random(sections[current_section]);
 };
 
 var touchStart = [0,0]
@@ -129,6 +177,8 @@ function DAG(nodes, links, invisible_links, centerpos,centeredNode){
     }
     console.log("links",links);
     var section = document.currentScript.parentElement;
+    section.graphs = (section.graphs || new Array());
+    section.graphs.push({nodes:nodes,links:links});
     section.nodes = nodes;
     section.links = links;
 
@@ -224,6 +274,8 @@ function DAG(nodes, links, invisible_links, centerpos,centeredNode){
 function groupLinksGraph(graph){
 
     var section = document.currentScript.parentElement;
+    section.graphs = (section.graphs || new Array());
+    section.graphs.push(graph);
 
     var width = 400, height = 400;
 
@@ -269,6 +321,8 @@ function groupLinksGraph(graph){
 	node.attr("cx", function(d) { return d.x; })
 	    .attr("cy", function(d) { return d.y; });
     });
+    section.force = force;
+    graph.force = force;
 }
 
 //setInterval(function(){location.reload();}, 1000)
