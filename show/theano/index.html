@@ -3,18 +3,7 @@
 <head>
   <meta charset="utf-8">
   <title>Theano: a short practical guide</title>
-  <!--<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>  
-      <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
-      <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>-->
-  <script src="../zaremba2014/jquery-2.1.4.min.js"></script>
-  <script src="../zaremba2014/d3.v3.min.js" charset="utf-8"></script>
-
-
-
-  <script src="../show.js"></script>
-  <link rel="stylesheet" type="text/css" href="../style.css">
-
-<script type="text/x-mathjax-config">
+  <script type="text/x-mathjax-config">
   MathJax.Hub.Config({TeX : {extensions:["color.js"]}});
   /*MathJax.Hub.Config({
     extensions: ["tex2jax.js"],
@@ -23,7 +12,23 @@
     tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
   });*/
 </script>
-<script type="text/javascript" src="../zaremba2014/MathJax-2.4-latest/MathJax.js?config=TeX-AMS_HTML"></script>
+
+  <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>  
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+  <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+
+
+
+  <!--<script src="../zaremba2014/jquery-2.1.4.min.js"></script>
+      <script src="../zaremba2014/d3.v3.min.js" charset="utf-8"></script>
+      <script type="text/javascript" src="../zaremba2014/MathJax-2.4-latest/MathJax.js?config=TeX-AMS_HTML"></script>-->
+
+
+
+  <script src="../show.js"></script>
+  <link rel="stylesheet" type="text/css" href="../style.css">
+
+
 
 
 </head>
@@ -628,7 +633,7 @@ sum_of_n_times_x = values[<codered>-1</codered>]</pre></code>
 values,_ = theano.scan(<codeblue>loop</codeblue>,
     [<codegrn>x</codegrn>], [<codered>T.zeros(n_hidden)</codered>], <codepurple>parameters</codepurple>)
 
-y_hat = values[-1]</pre></code>
+y_hat = T.nnet.softmax(values[-1])</pre></code>
 </section>
 
 <section>
@@ -643,6 +648,150 @@ v,u = theano.scan(loop,
   This way scan iterates over the "sequence" axis.<br/>
   <small>Otherwise it would iterate over the minibatch examples.</small>
 </section>
+
+
+
+<!------- CONVOLUTIONS --------------------->
+
+<section>
+  <left>2D convolutions</left><BR/>
+
+    <div id="conv2dgraph"></div>
+  <script>var svg = d3.select("#conv2dgraph")
+    .append("svg").attr({width:400,height:600});
+var sliders = [{p:0},{p:40},{p:80}];
+var colors = ["#f00","#0f0","#00f"];
+svg.append("rect")
+    .attr({
+      x:0.5,
+      y:0.5,
+      width:300,
+      height:300,
+      fill: "#aef",
+      stroke:"black",
+    });
+svg.append("rect")
+    .attr({
+      x:0.5,
+      y:320.5,
+      width:100,
+      height:100,
+      fill: "#d11",
+      stroke:"black",
+    });
+svg.append("rect")
+    .attr({
+      x:110.5,
+      y:320.5,
+      width:100,
+      height:100,
+      fill: "#1d1",
+      stroke:"black",
+    });
+svg.append("rect")
+    .attr({
+      x:220.5,
+      y:320.5,
+      width:100,
+      height:100,
+      fill: "#11d",
+      stroke:"black",
+    });
+var sliderElements =
+    svg.selectAll(".smallrect")
+     .data(sliders).enter()
+   .append("rect")
+   .attr({
+       x: 0.5,
+       y: 0.5,
+       width: 30,
+       height: 30,
+       fill: function(d,i){return colors[i];},
+       stroke: "black"
+     });
+var lines =
+    svg.selectAll(".convlines")
+      .data(sliders).enter()
+    .append("line");
+    
+
+function _draw(e){
+  sliderElements.attr({
+    x: function(d,i){d.p+=5; d.p %= 275*10; d.x = d.p%275;
+                     return d.x;},
+    y: function(d,i){d.y = 30*Math.floor(d.p/275); return d.y}});
+  lines.attr({
+    x1: function(d){return d.x+15;},
+    y1: function(d){return d.y+15;},
+    x2: function(d,i){return d.x/3+110*i+5;},
+    y2: function(d){return d.y/3+320+5}});
+  requestAnimationFrame(_draw);
+}
+requestAnimationFrame(_draw);</script>
+</section>
+
+
+<section>
+  <left>2D convolutions</left><BR/>
+  input \( x: (m_b,n_c^{(i)},{\color{blue}h},{\color{green}w})\)<br/>
+  filters \( W: (n_c^{(i+1)},n_c^{(i)},{\color{red}f_s},{\color{red}f_s})\)<br/>
+  
+  <code><pre><codecomm># x.shape: (batch size, n channels, height, width)</codecomm>
+<codecomm># W.shape: (n output channels, n input channels,
+#           filter height, filter width)</codecomm>
+output = T.nnet.conv.conv2d(x, W)</pre></code><br/>
+  This convolves \(W\) with \(x\), the output is<br/>
+  \(o: (m_b, n_c^{(i+1)}, {\color{blue}h}-{\color{red}f_s}+1, {\color{green}w}-{\color{red}f_s}+1)\)
+</section>
+
+
+
+<section>
+  <left>2D convolutions</left><BR/>
+  Example input, 32\(\times\)32 RGB images:<br/>
+  <code><pre><codecomm># x.shape: (batch size, n channels, height, width)</codecomm>
+x = x.reshape((mbsize, 32, 32, 3))
+x = x.dimshuffle(0,3,1,2)     
+<codecomm># W.shape: (n output channels, n input channels, 
+#           filter height, filter width)</codecomm>
+W = theano.shared(randoms((16,3,5,5)),
+                  name=<codestr>'W-conv'</codestr>)
+output_1 = T.nnet.conv.conv2d(x, W)</pre></code><br/>
+  <small>The flat array for an image is typically stored as a sequence of <br/>
+    RGBRGBRGBRGBRGBRGBRGBRGBRGB...<br/>
+    So you want to flip (<icode>dimshuffle</icode>) the dimensions so that the channels are separated.<br/>
+</small>
+</section>
+
+<section>
+  <left>2D convolutions</left><BR/>
+  Another layer:<br/>
+  <code><pre>
+W = theano.shared(randoms((32,16,5,5)),
+                  name=<codestr>'W-conv-2'</codestr>)
+output_2 = T.nnet.conv.conv2d(output_1, W)
+<codecomm># output_2.shape: (batch size, 32, 24, 24)</codecomm></pre></code><br/>
+</section>
+
+<section>
+  <left>2D convolutions</left><BR/>
+  You can also do pooling:<br/>
+  <code><pre><codekw>from</codekw> theano.tensor.downsample <codekw>import</codekw> max_pool_2d
+<codecomm># output_2.shape: (batch size, 32, 24, 24)</codecomm>
+pooled = max_pool_2d(output_2, (2,2))
+<codecomm># pooled.shape: (batch size, 32, 12, 12)</codecomm></pre></code><br/>
+</section>
+
+<section>
+  <left>2D convolutions</left><BR/>
+  Finally, after (many) convolutions and poolings:<br/>
+  <code><pre>
+flattened = conv_output_n.flatten(ndim=2)
+<codecomm># then feed `flattened` to a normal hidden layer</codecomm></pre></code><br/>
+  <small>we want to keep the minibatch dimension, but flatten all the other ones for our hidden layer, thus the <icode>ndim=2</icode></small>
+</section>
+
+<!------------ TIPS -------------->
 
 <section>
   <left>A few tips: make classes</left><BR/>
