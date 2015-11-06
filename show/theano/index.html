@@ -138,7 +138,7 @@
     <div>
     They (usually) define:<br/>
     <ul>
-      <li>A computation (given inputs)</li>
+      <li>A computation <small>(given inputs)</small></li>
       <li>A partial gradient <small>(given inputs and output gradients)</small></li>
       <li>C/CUDA code that does the computation</li>
     </ul>
@@ -260,10 +260,10 @@ g = T.grad(y, x) <codecomm># 2*x</codecomm></pre></code>
 
   <section>
     <left>Shared variables <br/><small>(or, wow, sending things to the GPU is long)</small></left> <br/>
-    Data reuse is made through `shared` variables.<br/>
-    <code><pre><codered>initial_W</codered> = uniform(-k,k,(n_in, n_out)))
+    Data reuse is made through 'shared' variables.<br/>
+    <code><pre><codered>initial_W</codered> = uniform(-k,k,(n_in, n_out))
 <codepurple>W</codepurple> = theano.shared(value=<codered>initial_W</codered>, name=<codestr>"W"</codestr>)</pre></code><br/>
-    That way it sits in the `right` memory spots <br/><small>(e.g. on the GPU if that's where your computation happens)</small>
+    That way it sits in the 'right' memory spots <br/><small>(e.g. on the GPU if that's where your computation happens)</small>
   </section>
 
   <section>
