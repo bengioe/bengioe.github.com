@@ -1,13 +1,13 @@
 body{
-    pointer-events: none;
+    //pointer-events: none;
 }
 section {
     font: 3em arial;
     text-align: center;
-    pointer-events: none;
+    //pointer-events: none;
 }
 #pres{
-    pointer-events: none;
+    //pointer-events: none;
 }
 
 verysmall{
@@ -40,7 +40,7 @@ code {
     display: inline-block;
     text-align: left;
     padding: 1em;
-    pointer-events: none;
+    //pointer-events: none;
 }
 
 ul,ol {

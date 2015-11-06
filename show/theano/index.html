@@ -40,8 +40,8 @@
   <section>
     <h1>Theano</h1>
     <h4>A short practical guide</h4><br/><br/>
-    Emmanuel Bengio
-
+    Emmanuel Bengio<br/>
+    <small><a href="http://folinoid.com/show/theano/">folinoid.com/show/theano/</a></small>
   </section>
 
   <section>
@@ -381,10 +381,10 @@ b = something(a)</pre></code><br/>
 theano.function([...],
                 [..., <codepink>some_node</codepink>])</pre></code><br/>
     <small>
-    Any node can be an ouput <verysmall>(even inputs!)</verysmall><br/>
+    Any node can be an output <verysmall>(even inputs!)</verysmall><br/>
     You should do this:<br/>
     <ul>
-      <li>To aquire statistics</li>
+      <li>To acquire statistics</li>
       <li>To monitor gradients, activations...</li>
       <li>With moderation*</li>
     </ul><br/>
@@ -683,7 +683,7 @@ svg.append("text")
     .text("1 filter map (1-channel input)");
 svg.append("text")
     .attr({x: 330, y:375, style:"font-size:.5em;"})
-    .text("3 filter maps");
+    .text("3 filter maps (\"hidden layer\")");
 
 
 var sliderElements =
@@ -707,7 +707,7 @@ var section = document.currentScript.parentElement;
 
 section.draw = function (e){
   sliderElements.attr({
-    x: function(d,i){d.p+=9; d.p %= 275*19; d.x = d.p%275;
+    x: function(d,i){d.p+=5; d.p %= 275*19; d.x = d.p%275;
                      return d.x;},
     y: function(d,i){d.y = 15*Math.floor(d.p/275); return d.y}});
   lines.attr({
@@ -716,6 +716,7 @@ section.draw = function (e){
     x2: function(d,i){return d.x/3+110*i+5;},
     y2: function(d){return d.y/3+320+5}});
 }</script>
+  $$x:(.,1,100,100)\;\;\; W:(3,1,9,9)$$
 </section>
 
 
@@ -831,7 +832,7 @@ Apply node that caused the error: GpuElemwise{add,no_inplace}
 Inputs types: [CudaNdarrayType(float32, matrix),
                CudaNdarrayType(float32, matrix)]
   </pre></code></small><br/>
-  It tells us we're trying to multiply \(AB\) but \(A:(n, 128), B:(256, m)\)
+  It tells us we're trying to add \(A+B\) but \(A:(n, 128), B:(n, 256)\)
 </section>
 
 <section>
@@ -872,12 +873,11 @@ For now GPUs can only use float32:<br/>
   <span style="font-size: 0.8em">
   <ul>
     <li>Random numbers (<icode>T.shared_randomstreams</icode>)</li>
-    <li>Convolutions (<icode>T.nnet.conv)</icode></li>
     <li>Printing/Drawing graphs (<icode>theano.printing</icode>)</li>
     <li>Jacobians, Rop, Lop and Hessian-free</li>
     <li>Dealing with NaN/inf</li>
     <li>Extending theano (implementing Ops and types)</li>
-    <li>Saving models to files (<icode>pickle</icode>)</li>
+    <li>Saving whole models to files (<icode>pickle</icode>)</li>
 
   </ul>
   </span>
