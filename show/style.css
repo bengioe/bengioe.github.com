@@ -65,7 +65,7 @@ svg line{
     stroke-width: 2;
 }
 .background_graph{
-    position:absolute;
+    position:relative;
     left: 0;
     top: 0;
     z-index:-1;
@@ -94,3 +94,7 @@ codepurple{color:purple }
 codestr{   color:#a73 }
 codeorange{color:#f90 }
 codepink{  color:#f0f }
+
+
+
+

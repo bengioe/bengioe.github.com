@@ -9,6 +9,12 @@ d3.selection.prototype.last = function() {
 };
 
 
+var is_printing = false;
+window.matchMedia("print").addListener(function(mql){
+    is_printing = true;
+});
+
+
 var sections;
 var current_section;
 var current_graph = undefined;
@@ -16,8 +22,10 @@ var current_graph = undefined;
 function build(){
 
     sections = $("#pres section");
-    sections.hide();
-    sections.eq(0).show()
+    if (!is_printing){
+        sections.hide();
+        sections.eq(0).show()
+    }
 
     current_section = 0;
     if (location.hash){
@@ -141,6 +149,13 @@ document.onkeydown = function(e){
     }
     if (e.keyCode == 82) // r
         ttt_random(sections[current_section]);
+    if (e.keyCode == 80){ // p
+        sections.show();
+        sections.css({
+            "page-break-after": "always",
+            "height":"20em",
+        });
+    }
 };
 
 var touchStart = [0,0]
