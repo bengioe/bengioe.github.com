@@ -153,7 +153,7 @@ document.onkeydown = function(e){
         sections.show();
         sections.css({
             "page-break-after": "always",
-            "height":"20em",
+            "height":$(window).height()+"px",
         });
     }
 };

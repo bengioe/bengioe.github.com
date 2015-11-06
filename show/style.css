@@ -1,9 +1,10 @@
 body{
-    //pointer-events: none;
+    margin-top: 0px;
 }
 section {
     font: 3em arial;
     text-align: center;
+    position: relative;
     //pointer-events: none;
 }
 #pres{
@@ -65,7 +66,7 @@ svg line{
     stroke-width: 2;
 }
 .background_graph{
-    position:relative;
+    position:absolute;
     left: 0;
     top: 0;
     z-index:-1;
@@ -98,3 +99,8 @@ codepink{  color:#f0f }
 
 
 
+@media print{
+    code{
+	background-color: #dfd;
+    }
+}
