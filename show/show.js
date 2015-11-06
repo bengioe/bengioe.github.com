@@ -39,7 +39,18 @@ function gotoSlide(s){
 
     sections.eq(current_section).show();
     location.hash = "#"+current_section;
+    requestAnimationFrame(slide_draw);
 }
+
+function slide_draw(){
+    var section = sections[current_section];
+    if (section.draw){
+	section.draw();
+	requestAnimationFrame(slide_draw);
+    }
+}
+
+
 
 function ttt_random(s){
     console.log("trand",s.graphs);

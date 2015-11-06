@@ -331,14 +331,15 @@ f = theano.function(
 x = T.matrix()
 x.<codepink>tag.test_value</codepink> = numpy.ones((mbs, n_in))
 y = T.vector()
-y.<codepink>tag.test_value</codepink> = numpy.ones((mbs,))
-    </pre></code><br/>
+y.<codepink>tag.test_value</codepink> = numpy.ones((mbs,))</pre></code><br/>
     <small>You should do this when designing your model to:<br/>
     <ul>
       <li>test shapes</li>
       <li>test types</li>
       <li>...</li>
-</ul></small>
+
+    </ul><br/>
+    Now every node has a <icode>.tag.test_value</icode></small>
   </section>
 
 
@@ -485,6 +486,7 @@ b = a.reshape([n,1,m])</pre></code><br/>
     <li><b>HostFromGPU</b>, the opposite</li>
     <li><b>[Advanced]Subtensor</b>, indexing</li>
     <li><b>Elemwise</b>, element-per-element Ops (+, -, exp, log, ...)</li>
+    <li><b>Composite</b>, many elemwise Ops merged together.</li>
 
   </ul>
   </span>
@@ -658,7 +660,7 @@ v,u = theano.scan(loop,
 
     <div id="conv2dgraph"></div>
   <script>var svg = d3.select("#conv2dgraph")
-    .append("svg").attr({width:400,height:600});
+    .append("svg").attr({width:700,height:500});
 var sliders = [{p:0},{p:40},{p:80}];
 var colors = ["#f00","#0f0","#00f"];
 svg.append("rect")
@@ -671,32 +673,19 @@ svg.append("rect")
       stroke:"black",
     });
 svg.append("rect")
-    .attr({
-      x:0.5,
-      y:320.5,
-      width:100,
-      height:100,
-      fill: "#d11",
-      stroke:"black",
-    });
+    .attr({x:0.5,y:320.5,width:100,height:100,fill: "#d77",stroke:"black" });
 svg.append("rect")
-    .attr({
-      x:110.5,
-      y:320.5,
-      width:100,
-      height:100,
-      fill: "#1d1",
-      stroke:"black",
-    });
+    .attr({x:110.5, y:320.5, width:100, height:100, fill: "#7d7", stroke:"black" });
 svg.append("rect")
-    .attr({
-      x:220.5,
-      y:320.5,
-      width:100,
-      height:100,
-      fill: "#11d",
-      stroke:"black",
-    });
+    .attr({ x:220.5, y:320.5, width:100, height:100, fill: "#77d", stroke:"black" });
+svg.append("text")
+    .attr({x: 320, y:150, style:"font-size:.5em;"})
+    .text("1 filter map (1-channel input)");
+svg.append("text")
+    .attr({x: 330, y:375, style:"font-size:.5em;"})
+    .text("3 filter maps");
+
+
 var sliderElements =
     svg.selectAll(".smallrect")
      .data(sliders).enter()
@@ -714,20 +703,19 @@ var lines =
       .data(sliders).enter()
     .append("line");
     
+var section = document.currentScript.parentElement;
 
-function _draw(e){
+section.draw = function (e){
   sliderElements.attr({
-    x: function(d,i){d.p+=5; d.p %= 275*10; d.x = d.p%275;
+    x: function(d,i){d.p+=9; d.p %= 275*19; d.x = d.p%275;
                      return d.x;},
-    y: function(d,i){d.y = 30*Math.floor(d.p/275); return d.y}});
+    y: function(d,i){d.y = 15*Math.floor(d.p/275); return d.y}});
   lines.attr({
     x1: function(d){return d.x+15;},
     y1: function(d){return d.y+15;},
     x2: function(d,i){return d.x/3+110*i+5;},
     y2: function(d){return d.y/3+320+5}});
-  requestAnimationFrame(_draw);
-}
-requestAnimationFrame(_draw);</script>
+}</script>
 </section>
 
 
