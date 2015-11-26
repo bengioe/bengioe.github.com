@@ -11,12 +11,13 @@
   <div id="principal">
     <div id="ptext">
       <center>
-	<h2>A list of things which do not seem to stick in my long term memory</h2>
+	<h2>A (loosely structured) list of things to remember</h2>
 	<hr width="30%">
       </center>
 
+      <h3>Probabilities</h3>
       <br/>
-      The expected value of a function of some variable is:
+      The <b>expected</b> value of a <b>function</b> of some variable is:
       $$\mathbb{E}_X (f(X)) = \int_{-\infty}^{\infty} f(X)dP$$
       but in the discrete case it's just:
       $$\mathbb{E}_X (f(X)) = \sum_x f(x)p(x)$$
@@ -25,19 +26,25 @@
       <br/>
       The joint probability of many variables can be decomposed in terms of a product of conditional probabilities:
       $$p(x_1,x_2,...) = p(x_1)\times p(x_2|x_1) \times p(x_3|x_2,x_1) ... $$
-      and you can of course reorder the variables as you wish.
+      and you can of course reorder the variables as you wish.<br/><br/><br/>
+      The expected value of the <b>minimum</b> of a set of random variables can be found as follows, using the CDF of the product of the CDFs:<br/>
+      $$P(Min \geq x) = \prod_i P(X_i \geq x)$$
+      $$ E(Min) = \int_{support} P(Min \geq x) dx$$
 
 
       <h3>emacs</h3>
       Rename a file: <code>C-x C-j RET; R; *name* RET; C-x k RET;</code> <br/>
+      <h3>c++</h3>
+      measuring time:
+      <pre><code>    auto t_start = std::chrono::high_resolution_clock::now();    
+    // ...
+    auto t_now = std::chrono::high_resolution_clock::now();
+    float time = std::chrono::duration_cast<std::chrono::milliseconds>(t_now - t_start).count();
+    printf("took %fms\n",time);</code></pre>
 
-      <center>
-	<h2>A (succint) reference on (parts of) Machine Learning</h2>
-	<hr width="30%">
-      </center>
+      <hr width="30%">
+      <h2>Machine Learning</h2>
       <br/>
-      <h2>Single Function Learning, (un)supervised algorithms</h2>
-      <h3>General Terms</h3>
       \(X \in \mathbb{R}^{n\times d_x}\) is input data. \(Y \in \mathbb{R}^{n\times d_y}\) is a target. \(w\) is a set of weights.
 
 
@@ -49,16 +56,16 @@
       $$ -2X^T(Y-Xw)=0 \iff 2X^TXw = 2X^TY \iff w = (X^TX)^{-1}X^TY$$
 
       <h3>Naive Bayes</h3>
-      Classification. Find \(P(Y=i)\) and \(P(X_j|Y=i)\) by counting from dataset.<br/>
+      Classification. Find \(P(Y=i)\) and \(P(X_j|Y=i)\) by counting from dataset. Make independence assumption between \(X_j\)s. <br/>
       Estimate \(P(Y=i|X)\) by \(P(Y=i)\prod_j P(X_j|Y=i) \), take argmax. <br/>
-      Can be extendent to non-binary \(X_j \in V\), but then memory complexity becomes \(O(|V|d_x d_y)\).
+      Can be extended to non-binary \(X_j \in V\), but then memory complexity becomes \(O(|V|d_x d_y)\).
 
 
       <h3>Neural Networks</h3>
       <b>Fully connected neural nets</b> are typically defined as a series of layers with weights \(w_i = \{ W^{(i)} \in \mathbb{R}^{d_x\times d_y}, b^{(i)} \in \mathbb{R}^{d_y} \}\), input \(x_i\) and output \(h_{i+1}\) or \(x_{i+1}\). <br/>
       $$h_{i+1} = f(xW^{(i)}+b^{(i)})$$
       where \(f\) is an activation function. <br/>
-      Typical activation functions are (and this is but a sample of all activation functions that exist):
+      Typical <b>activation functions</b> are (and this is but a sample of all activation functions that exist):
       <ul>
 	<li>the "sigmoid": \(\frac{1}{1+e^{-x}}\)</li>
 	<li>the hyperbolic tangent: \(tanh\)</li>
@@ -80,7 +87,7 @@
       !-->
     </div>      
     <div id="bot">
-      Emmanuel Bengio.
+      Emmanuel Bengio
     </div>
     <br class="wide"/>
   </div>
