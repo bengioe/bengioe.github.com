@@ -4,6 +4,12 @@ td{
     vertical-align: top;
     padding-bottom:1.4em;
 }
+body{
+	background-color: #eee;
+}
+.profilepic{
+  border-radius: 25px;
+}
 .leftf{
     font: 1.11em arial;
     font-weight: bold;
@@ -12,7 +18,7 @@ td{
 
 a {
     text-decoration: none;
-    color: #569;
+    color: #246;
 } 
 
 ml > a{
