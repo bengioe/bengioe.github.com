@@ -7,7 +7,15 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-87030991-1', 'auto');
+  ga('send', 'pageview');
 
+</script>
 <style type="text/css">
     /*!
  * Bootstrap v2.3.2
@@ -186,14 +194,14 @@ div#notebook {
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="on-weight-initialization-of-deep-nets">On weight initialization of deep nets</h3>
 <p>I will illustrate here the computations made in Glorot et al.(2010) and He et al.(2015), hopefully in a clear and simple way. Any suggestions and additonal references are welcome!</p>
-<p>I will try to use simple and detailed math, as I am sure I am not alone to be scared of integrals involving hyperbolic tangents and such. Again suggestions and clarifications are welcome.</p>
+<p>I will try to use simple and detailed math. Again suggestions and clarifications are welcome. All integrals are done in Wolfram Alpha, as I am skeptical of my own integration skills, and would not want to claim falsehoods.</p>
 <h4 id="preliminaries">Preliminaries</h4>
 <ul>
-<li>We need to assume $X\sim D$ and $X_i$ i.i.d., with some known mean and variance $\mu_X$ and $\sigma^2_X$,</li>
+<li>We need to assume $X\sim D$ and each dimension $X_i$ as i.i.d., with some known mean and variance $\mu_X$ and $\sigma^2_X$,</li>
 <li>$W_{l,ij} \sim \mathcal{W}_l$ is the sampled weight at layer $l$,</li>
 <li>$\mathbb{E}[\mathcal{W}] = 0$ will simplify computations,</li>
 <li>$U_{l,i}$ is the pre-activation value of unit $i$ in layer $l$,</li>
-<li>$H_{l,i}$ is the post-activation value of the same unit.</li>
+<li>$H_{l,i}$ is the post-activation value of the same unit,</li>
 <li>for simplicity of notation we assume there are $n$ inputs, $n$ hidden units per layer.</li>
 </ul>
 <p>While the i.i.d. assumption on $X$ is possibly strong, an identical mean and variance across some normalized $X_i$s is sufficient under most cases.</p>
