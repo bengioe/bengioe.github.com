@@ -1,0 +1,7 @@
+body{ background-color:rgb(250,232,126);
+	font-size: 3vw;}
+#identification {padding-bottom: 5vh; padding-top:10vh}
+img{width: 10vw;}
+#maxime {display:none; padding-top:20vh; padding-left:20vw}
+#patrick {display:none; padding-top:20vh; padding-left:20vw}
+#monInsulte {display:inline;}
