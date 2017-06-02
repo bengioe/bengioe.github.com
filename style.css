@@ -1,28 +1,39 @@
-tr{
+/*tr{
 }
 td{
     vertical-align: top;
     padding-bottom:1.4em;
-}
+}*/
+
 body{
 	background-color: #eee;
+}
+h2{
+	margin-top: 4em;
+	margin-left: 2em;
 }
 .profilepic{
   border-radius: 25px;
 }
 .leftf{
-    font: 1.11em arial;
-    font-weight: bold;
-    width: 12em;
+	//align: center;
+	//margin-right: 1em;
+    //text-size-adjust: 100%; 
 }
-
+.rightf{
+	max-width: 1000px;
+	text-align: left;
+}
+.tablefiller70{
+	width: 70%;
+}
 a {
     text-decoration: none;
-    color: #246;
+    color: #357;
 } 
 
 ml > a{
-    color: #090;
+    color: #070;
 }
 
 
@@ -30,16 +41,12 @@ pl > a, pl{
     color: #953;
 }
 
-#principal{
-    max-width: 70em;
-    margin-left: auto;
-    margin-right: auto;
-}
-#bot{
-    font-size: 0.8em;
-}
-
-#ptext{
-    padding: 1em;
-    border: 2px solid #dde;
-}
+#asd{
+	position: absolute; right: 0;
+	//float:left;
+   margin: 1em;
+    text-size-adjust: none; 
+ }
+ table{
+   width:70%;
+ }
