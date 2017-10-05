@@ -1,0 +1,55 @@
+==================================================================
+https://keybase.io/bengioe
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of http://folinoid.com
+  * I am bengioe (https://keybase.io/bengioe) on keybase.
+  * I have a public key ASBWn4T47q8xd5qOnXmz4G9xZvmi8Yni-_rQscRh5Ux2aAo
+
+To do so, I am signing this object:
+
+{
+  "body": {
+    "key": {
+      "eldest_kid": "0120569f84f8eeaf31779a8e9d79b3e06f7166f9a2f189e2fbfad0b1c461e54c76680a",
+      "host": "keybase.io",
+      "kid": "0120569f84f8eeaf31779a8e9d79b3e06f7166f9a2f189e2fbfad0b1c461e54c76680a",
+      "uid": "5e628bf69dff502933c316bb3a2e4319",
+      "username": "bengioe"
+    },
+    "merkle_root": {
+      "ctime": 1507210025,
+      "hash": "f8dae4ed28873a0981af13dbcd66f70f49692c47a0d38e2dc742b768bf1fdb900bba0f07b01ce17d7dd88208826deaf1e23c5b2dd76d8dda517d24fef2d41c1b",
+      "hash_meta": "84150483f33a075fe61112ce321a05e7d209475595839da7c49e4a2b71964f19",
+      "seqno": 1512758
+    },
+    "service": {
+      "hostname": "folinoid.com",
+      "protocol": "http:"
+    },
+    "type": "web_service_binding",
+    "version": 1
+  },
+  "client": {
+    "name": "keybase.io go client",
+    "version": "1.0.33"
+  },
+  "ctime": 1507210037,
+  "expire_in": 504576000,
+  "prev": "bb109367fd45db4a885c593a25f715c4a71de0113f46b8e079a750776eb09afe",
+  "seqno": 5,
+  "tag": "signature"
+}
+
+which yields the signature:
+
+hKRib2R5hqhkZXRhY2hlZMOpaGFzaF90eXBlCqNrZXnEIwEgVp+E+O6vMXeajp15s+BvcWb5ovGJ4vv60LHEYeVMdmgKp3BheWxvYWTFA0J7ImJvZHkiOnsia2V5Ijp7ImVsZGVzdF9raWQiOiIwMTIwNTY5Zjg0ZjhlZWFmMzE3NzlhOGU5ZDc5YjNlMDZmNzE2NmY5YTJmMTg5ZTJmYmZhZDBiMWM0NjFlNTRjNzY2ODBhIiwiaG9zdCI6ImtleWJhc2UuaW8iLCJraWQiOiIwMTIwNTY5Zjg0ZjhlZWFmMzE3NzlhOGU5ZDc5YjNlMDZmNzE2NmY5YTJmMTg5ZTJmYmZhZDBiMWM0NjFlNTRjNzY2ODBhIiwidWlkIjoiNWU2MjhiZjY5ZGZmNTAyOTMzYzMxNmJiM2EyZTQzMTkiLCJ1c2VybmFtZSI6ImJlbmdpb2UifSwibWVya2xlX3Jvb3QiOnsiY3RpbWUiOjE1MDcyMTAwMjUsImhhc2giOiJmOGRhZTRlZDI4ODczYTA5ODFhZjEzZGJjZDY2ZjcwZjQ5NjkyYzQ3YTBkMzhlMmRjNzQyYjc2OGJmMWZkYjkwMGJiYTBmMDdiMDFjZTE3ZDdkZDg4MjA4ODI2ZGVhZjFlMjNjNWIyZGQ3NmQ4ZGRhNTE3ZDI0ZmVmMmQ0MWMxYiIsImhhc2hfbWV0YSI6Ijg0MTUwNDgzZjMzYTA3NWZlNjExMTJjZTMyMWEwNWU3ZDIwOTQ3NTU5NTgzOWRhN2M0OWU0YTJiNzE5NjRmMTkiLCJzZXFubyI6MTUxMjc1OH0sInNlcnZpY2UiOnsiaG9zdG5hbWUiOiJmb2xpbm9pZC5jb20iLCJwcm90b2NvbCI6Imh0dHA6In0sInR5cGUiOiJ3ZWJfc2VydmljZV9iaW5kaW5nIiwidmVyc2lvbiI6MX0sImNsaWVudCI6eyJuYW1lIjoia2V5YmFzZS5pbyBnbyBjbGllbnQiLCJ2ZXJzaW9uIjoiMS4wLjMzIn0sImN0aW1lIjoxNTA3MjEwMDM3LCJleHBpcmVfaW4iOjUwNDU3NjAwMCwicHJldiI6ImJiMTA5MzY3ZmQ0NWRiNGE4ODVjNTkzYTI1ZjcxNWM0YTcxZGUwMTEzZjQ2YjhlMDc5YTc1MDc3NmViMDlhZmUiLCJzZXFubyI6NSwidGFnIjoic2lnbmF0dXJlIn2jc2lnxEDVHa0peiq5E/ss1Zajk07dalLnW07IMu9gYIwbUXd587HuayIMA834cVOCOfY3MzNifCxCCLI+M1ae6K28RKUDqHNpZ190eXBlIKRoYXNogqR0eXBlCKV2YWx1ZcQgR2kD4yrVneHtnr6azU2GqZdAcyOKD9B3U/f4cQ31iaGjdGFnzQICp3ZlcnNpb24B
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/bengioe
+
+==================================================================
