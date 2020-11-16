@@ -45,9 +45,16 @@ a.tooltip:hover span{
     display:inline;
 }
 
-@media only screen and (max-width: 1200px) {
+@media only screen and (max-width: 40em) {
   #container {
       margin: 0;
       width: 99vw;
+  } 
+  .content {
+      margin: 0;
+      width: 99vw;
+  }
+  ul {
+      padding: 5px;
   }
 }
