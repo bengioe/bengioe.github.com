@@ -48,11 +48,11 @@ a.tooltip:hover span{
 @media only screen and (max-width: 40em) {
   #container {
       margin: 0;
-      width: 99vw;
+      width: 96vw;
   } 
   .content {
       margin: 0;
-      width: 99vw;
+      width: 96vw;
   }
   ul {
       padding: 5px;
