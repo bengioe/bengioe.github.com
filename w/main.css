@@ -20,7 +20,7 @@ br {
 }
 
 a.tooltip:hover {
-    background:#ffffff;
+    /*background:#ffffff;*/
 }
 a.tooltip:visited{
     color: blue;
@@ -30,13 +30,13 @@ a.tooltip:visited{
 a.tooltip span {
     display:none;
     position:absolute;
-    padding:2px 3px;
+    padding:5px 5px;
     margin-top: 1.5em;
     font-size: 0.9em;
     width: 19em;
     border:1px solid #cccccc;
     z-index: 1;
-    background: #fff;
+    background: #ffc;
     color: #000;
                  
 }
@@ -45,16 +45,17 @@ a.tooltip:hover span{
     display:inline;
 }
 
+ul.toc {
+    list-style-type:none;
+}
+
 @media only screen and (max-width: 40em) {
-  #container {
-      margin: 0;
-      width: 96vw;
-  } 
   .content {
       margin: 0;
       width: 96vw;
   }
   ul {
-      padding: 5px;
+      padding: 5px; /* To remove default left padding */
   }
+  
 }
