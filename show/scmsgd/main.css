@@ -2,7 +2,7 @@
 
 br {
    display: block;
-   margin: 5px 0;
+   margin: 10px 0;
 }
 
 .content {
@@ -12,16 +12,17 @@ br {
     font-family: 'EB Garamond', serif;
     font-size: 1.12em;
     line-height: 1.12em;
+    text-align: justify;
 }
 
 .katex {
     font-size: 1em;
 }
 
-a:hover {
-    background:#ffffff;
+a.tooltip:hover {
+    /*background:#ffffff;*/
 }
-a:visited{
+a.tooltip:visited{
     color: blue;
 }
 /*BG color is a must for IE6*/
@@ -29,13 +30,13 @@ a:visited{
 a.tooltip span {
     display:none;
     position:absolute;
-    padding:2px 3px;
+    padding:5px 5px;
     margin-top: 1.5em;
     font-size: 0.9em;
     width: 19em;
     border:1px solid #cccccc;
     z-index: 1;
-    background: #fff;
+    background: #ffc;
     color: #000;
                  
 }
@@ -44,9 +45,17 @@ a.tooltip:hover span{
     display:inline;
 }
 
-@media only screen and (max-width: 1200px) {
-  #container {
+ul.toc {
+    list-style-type:none;
+}
+
+@media only screen and (max-width: 40em) {
+  .content {
       margin: 0;
-      width: 99vw;
+      width: 96vw;
   }
+  ul {
+      padding: 5px; /* To remove default left padding */
+  }
+  
 }
