@@ -43,8 +43,10 @@ h2{
 	width: 70%;
 }
 a {
-    text-decoration: none;
+    /**text-decoration: none;*/
     color: #337;
+    text-decoration: underline;
+    text-decoration-color: #ccf;
 } 
 
 ml > a{
