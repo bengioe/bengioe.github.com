@@ -1,0 +1,1397 @@
+#LyX 2.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 474
+\begin_document
+\begin_header
+\textclass article
+\begin_preamble
+\frenchspacing
+\usepackage{amsmath}
+\newcommand{\ø}{\raisebox{.3ex}{\tiny$\; \bullet \;$}}
+\renewcommand{\arraystretch}{1.25}
+\usepackage{fancyheadings}
+\pagestyle{fancy}
+\chead{\textit{Emmanuel Bengio · Curriculum Vitae}}
+\usepackage{mathpazo}
+\end_preamble
+\use_default_options false
+\maintain_unincluded_children false
+\language american
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_math auto
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize 11
+\spacing single
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered false
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks false
+\pdf_pdfborder false
+\pdf_colorlinks true
+\pdf_backref false
+\pdf_pdfusetitle true
+\papersize letterpaper
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 2
+\use_package cancel 1
+\use_package esint 0
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 0
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 0.75in
+\topmargin 0.6in
+\rightmargin 0.75in
+\bottommargin 0.6in
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation skip
+\defskip medskip
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+\align center
+
+\size large
+\noun on
+emmanuel bengio
+\emph on
+\noun default
+
+\begin_inset Newline newline
+\end_inset
+
+School of Computer Science
+\begin_inset Newline newline
+\end_inset
+
+McGill university 
+\begin_inset Newline newline
+\end_inset
+
+
+\family typewriter
+\size small
+\emph default
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+href{http://folinoid.com}{folinoid.com}
+\end_layout
+
+\end_inset
+
+
+\family default
+\size large
+\emph on
+
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace 13pt
+\end_inset
+
+
+\series bold
+\size large
+Education
+\series default
+\size default
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{-0.6em}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset CommandInset line
+LatexCommand rule
+offset "0.5ex"
+width "100line%"
+height "1pt"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace -6pt
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+
+\series bold
+PhD
+\series default
+ in Computer Science 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+hfill
+\end_layout
+
+\end_inset
+
+ 
+\noun on
+McGill university, 2016-
+\noun default
+202x
+\begin_inset Newline newline
+\end_inset
+
+Advisors: Joelle Pineau & Doina Precup
+\end_layout
+
+\begin_layout Standard
+\noindent
+
+\series bold
+Master's
+\series default
+ in Computer Science 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+hfill
+\end_layout
+
+\end_inset
+
+ 
+\noun on
+McGill university, 2014-
+\noun default
+2016
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset space \hspace*{}
+\length 1cm
+\end_inset
+
+
+\emph on
+Thesis: 
+\emph default
+
+\begin_inset Quotes eld
+\end_inset
+
+On Reinforcement Learning for Deep Neural Architectures : Conditional Computatio
+n with Stochastic Computation Policies
+\begin_inset Quotes erd
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+Advisors: Joelle Pineau & Doina Precup
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Bachelor's
+\series default
+ in Computer Science, honor 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+hfill
+\end_layout
+
+\end_inset
+
+ 
+\noun on
+université de montréal, 2011-2014
+\end_layout
+
+\begin_layout Standard
+Diploma of College Studies (
+\series bold
+DEC
+\series default
+) in Comp.
+ Sci.
+ and Maths 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+hfill
+\end_layout
+
+\end_inset
+
+ 
+\noun on
+cégep de bois-de-boulogne, 2009-2011
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{0.5em}
+\end_layout
+
+\end_inset
+
+
+\series bold
+\size large
+Selected Scientific works
+\size default
+ - 
+\series default
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+see my 
+\backslash
+href{https://scholar.google.ca/citations?user=yVtSOt8AAAAJ}{Google Scholar
+ page} for a complete list
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{-0.6em}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset CommandInset line
+LatexCommand rule
+offset "0.5ex"
+width "100line%"
+height "1pt"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace -8pt
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Flow Network based Generative Models for Non-Iterative Diverse Candidate
+ Generation.
+ 
+\series default
+Emmanuel Bengio, Moksh Jain, Maksym Korablyov, Doina Precup, Yoshua Bengio
+ (2021, Under submission)
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Interference and Generalization in Temporal Difference Learning
+\series default
+.
+ Emmanuel Bengio, Joelle Pineau, Doina Precup (ICML 2020) 
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+A Closer Look at Memorization in Deep Networks
+\series default
+\emph on
+.
+ 
+\emph default
+Devansh Arpit, Stanisław Jastrzębski, Nicolas Ballas, David Krueger, Emmanuel
+ Bengio, Maxinder S.
+ Kanwal, Tegan Maharaj, Asja Fischer, Aaron Courville, Yoshua Bengio, Simon
+ Lacoste-Julien, (ICML 2017, NVIDIA Pioneering Research Award)
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Independently Controllable Features
+\series default
+\emph on
+.
+
+\emph default
+ Emmanuel Bengio, Valentin Thomas, Joelle Pineau, Doina Precup, Yoshua Bengio,
+ (RLDM 2017)
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Conditional Computation in Neural Networks for faster models
+\series default
+.
+ Emmanuel Bengio, Pierre-Luc Bacon, Joelle Pineau, Doina Precup.
+ International Conference on Learning Representations, Workshop Track (ICLR
+ 2016)
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Combining Modality Specific Deep Neural Networks for Emotion Recognition
+ in Video
+\series default
+, S.
+ Ebrahimi et al., Emotion Recognition In The Wild Challenge and Workshop
+ (EmotiW 2013)
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{0.5em}
+\end_layout
+
+\end_inset
+
+
+\series bold
+\size large
+Work Experience
+\series default
+\size default
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{-0.6em}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset CommandInset line
+LatexCommand rule
+offset "0.5ex"
+width "100line%"
+height "1pt"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace -8pt
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Research Internship, Google Brain Montreal team 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+hfill
+\end_layout
+
+\end_inset
+
+
+\noun on
+Google, 2018
+\end_layout
+
+\begin_layout Standard
+Research Internship, Deepmind Montreal 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+hfill
+\end_layout
+
+\end_inset
+
+ 
+\noun on
+Deepmind, 2019
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{0.5em}
+\end_layout
+
+\end_inset
+
+
+\series bold
+\size large
+Technical Skills
+\series default
+\size default
+ - 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+href{https://github.com/bengioe}{my github profile}
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{-0.6em}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset CommandInset line
+LatexCommand rule
+offset "0.5ex"
+width "100line%"
+height "1pt"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace -8pt
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Language of choice: Python
+\begin_inset space ~
+\end_inset
+
+ -
+\begin_inset space ~
+\end_inset
+
+ Capable with: C, C++, Javascript, Java, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+LaTeX
+\end_layout
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+Used on occasion: Scheme, x86, SQL, GLSL, CUDA, EmacsLisp
+\end_layout
+
+\begin_layout Standard
+Technologies of choice: PyTorch, Theano, pyplot, Linux
+\begin_inset Newline newline
+\end_inset
+
+Familiar with: slurm/PBS-style scheduling, sqlite, SFML, WebGL
+\end_layout
+
+\begin_layout Standard
+Comfortable with calculus, probability and statistics, linear algebra, graph
+ theory, machine learning and deep learning theory.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+newpage
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+\size large
+Scientific Activities
+\series default
+\size default
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{-0.6em}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset CommandInset line
+LatexCommand rule
+offset "0.5ex"
+width "100line%"
+height "1pt"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace -8pt
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+I have reviewed for:
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{-8pt}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+ICLR, International Conference on Learning Representations (2017-)
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{-8pt}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+ICML, International Conference on Machine Learning (2017-)
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{-8pt}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+NeurIPS, Neural Information Processing Systems (2017-)
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{-8pt}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+AAAI, Association for the Advancement of Artificial Intelligence (2020-)
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{-8pt}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+MAIS, Montreal AI Symposium (2019-)
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{-8pt}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+JMLR, the Journal of Machine Learning Research
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{-8pt}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+I was a Teaching Assistant at McGill University for: 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{-8pt}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Artificial Intelligence, COMP-424, Winter 2016
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{-8pt}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Applied Machine Learning, COMP-551, Fall 2016 & Winter 2017
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{-8pt}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+I was a mentor in the AI4Good Lab in 2018, I actively maintained reading
+ groups and discussion groups within Mila, and am an active member of Mila's
+ #help channel.
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+\size large
+Distinctions & Scholarships
+\series default
+\size default
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{-0.6em}
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset CommandInset line
+LatexCommand rule
+offset "0.5ex"
+width "100line%"
+height "1pt"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace -6pt
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+FRQNT Doctoral Research Scholarship - 
+\emph on
+Fonds de Recherche du Québec Nature et Technologies 
+\emph default
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+hfill
+\end_layout
+
+\end_inset
+
+2017-2020
+\begin_inset Newline newline
+\end_inset
+
+NSERC Canada Graduate Scholarship - Master's Program
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+hfill
+\end_layout
+
+\end_inset
+
+2014-2015
+\begin_inset Newline newline
+\end_inset
+
+Palmarès du Doyen de la Faculté des Arts et Sciences (academic excellence
+ distinction)
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+hfill
+\end_layout
+
+\end_inset
+
+2012,
+\begin_inset space ~
+\end_inset
+
+2013,
+\begin_inset space ~
+\end_inset
+
+2014
+\begin_inset Newline newline
+\end_inset
+
+NSERC Undergraduate Student Research Awards 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+hfill
+\end_layout
+
+\end_inset
+
+ Summer 2013
+\emph on
+
+\begin_inset Newline newline
+\end_inset
+
+Bourse d'excellence académique
+\emph default
+ 
+\emph on
+Abilis
+\emph default
+, Solutions Abilis (academic excellence scholarship)
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+hfill
+\end_layout
+
+\end_inset
+
+2013
+\begin_inset Newline newline
+\end_inset
+
+Entry scholarship, Département d'Informatique et Recherche Opérationelle
+ (acad.
+ excellence) 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+hfill
+\end_layout
+
+\end_inset
+
+2011-2014
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+\size large
+Implication
+\series default
+\size default
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{-0.6em}
+\end_layout
+
+\end_inset
+
+
+\series bold
+
+\begin_inset Newline newline
+\end_inset
+
+
+\series default
+
+\begin_inset CommandInset line
+LatexCommand rule
+offset "0.5ex"
+width "100line%"
+height "1pt"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace -6pt
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+Association générale des étudiants de Bois-de-Boulogne
+\emph default
+ (AGEBdeB)
+\begin_inset Newline newline
+\end_inset
+
+Coordinator of the 
+\emph on
+Coda
+\emph default
+, the school's music comitee
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+hfill
+\end_layout
+
+\end_inset
+
+ 
+\noun on
+Bois-de-Boulogne
+\noun default
+ 2009-2011
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+Association des étudiants du Département d'informatique et de recherche
+ opérationelle de l'Université de Montréal
+\emph default
+ (AÉDIROUM)
+\begin_inset Newline newline
+\end_inset
+
+2nd, then 3rd year student representative
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+hfill
+\end_layout
+
+\end_inset
+
+ 
+\noun on
+Université de Montréal 
+\noun default
+2012-2014 
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+\size large
+Interests
+\series default
+\size default
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{-0.6em}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset CommandInset line
+LatexCommand rule
+offset "0.5ex"
+width "100line%"
+height "1pt"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace -8pt
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Machine Learning
+\series default
+, deep learning and reinforcement learning.
+ In particular, using RL methods to extend deep models, unsupervised learning
+ in RL environments, and applying RL to real-world problems.
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Compilers
+\series default
+, design and implementation of programming languages.
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
+Video game programming, computer graphics
+\emph on
+
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\series bold
+Music
+\series default
+, guitar improvisation and composition.
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+\size large
+About me
+\series default
+\size default
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{-0.6em}
+\end_layout
+
+\end_inset
+
+
+\series bold
+
+\begin_inset Newline newline
+\end_inset
+
+
+\series default
+
+\begin_inset CommandInset line
+LatexCommand rule
+offset "0.5ex"
+width "100line%"
+height "1pt"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+hspace{0.6cm}
+\end_layout
+
+\end_inset
+
+I am currently a 5th year PhD student at McGill University, doing research
+ on Deep RL.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+hspace{0.6cm}
+\end_layout
+
+\end_inset
+
+For me research is a very motivating way to spend time.
+ Trying to understand how stuff works and pushing the boundaries of knowledge
+ (either mine, or better, humanity's) have kept me awake at night since
+ I was a kid.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+hspace{0.6cm}
+\end_layout
+
+\end_inset
+
+My journey with deep learning began around 2010, where I played with sparse
+ coding and emotion recognition, followed by real-time 3D illumination with
+ sparse mixtures, RBF-like autoencoder representations, lexer optimization,
+ and attempts to replicate early DQN results.
+ I then turned Deep-RL into RL-Deep by using RL to perform lazy evaluation
+ of deep nets (and write a master's thesis).
+ Then, for a while I investigated "unsupervised" deep RL, that is, learning
+ representations through interaction with an environment using deep models.
+ I then turned my attention to understanding more fundamental mechanisms
+ of generalization and optimization in value-based Deep RL.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+hspace{0.6cm}
+\end_layout
+
+\end_inset
+
+I am now mostly interested in applying RL to real world problems like drug
+ discovery.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+hspace{0.6cm}
+\end_layout
+
+\end_inset
+
+I'm also a decent guitar player and I enjoy cycling! I love musical improv,
+ and have composed a few things.
+\end_layout
+
+\end_body
+\end_document
