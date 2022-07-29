@@ -1,7 +1,9 @@
-#LyX 2.1 created this file. For more info see http://www.lyx.org/
-\lyxformat 474
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
 \begin_document
 \begin_header
+\save_transient_properties true
+\origin unavailable
 \textclass article
 \begin_preamble
 \frenchspacing
@@ -19,16 +21,18 @@
 \language_package default
 \inputencoding auto
 \fontencoding global
-\font_roman default
-\font_sans default
-\font_typewriter default
-\font_math auto
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
 \font_default_family default
 \use_non_tex_fonts false
 \font_sc false
 \font_osf false
-\font_sf_scale 100
-\font_tt_scale 100
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
 \graphics default
 \default_output_format default
 \output_sync 0
@@ -67,6 +71,7 @@
 \suppress_date false
 \justification true
 \use_refstyle 0
+\use_minted 0
 \index Index
 \shortcut idx
 \color #008000
@@ -79,7 +84,10 @@
 \tocdepth 3
 \paragraph_separation skip
 \defskip medskip
-\quotes_language english
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
 \papercolumns 1
 \papersides 1
 \paperpagestyle default
@@ -101,14 +109,6 @@ emmanuel bengio
 \emph on
 \noun default
 
-\begin_inset Newline newline
-\end_inset
-
-School of Computer Science
-\begin_inset Newline newline
-\end_inset
-
-McGill university 
 \begin_inset Newline newline
 \end_inset
 
@@ -209,7 +209,21 @@ hfill
 \noun on
 McGill university, 2016-
 \noun default
-202x
+2022
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset space \hspace*{}
+\length 1cm
+\end_inset
+
+
+\emph on
+Thesis: 
+\emph default
+Generalization, optimization, diverse generation: insights and advances
+ in the use of bootstrapping in deep neural networks
 \begin_inset Newline newline
 \end_inset
 
@@ -252,16 +266,8 @@ McGill university, 2014-
 \emph on
 Thesis: 
 \emph default
-
-\begin_inset Quotes eld
-\end_inset
-
 On Reinforcement Learning for Deep Neural Architectures : Conditional Computatio
 n with Stochastic Computation Policies
-\begin_inset Quotes erd
-\end_inset
-
-
 \begin_inset Newline newline
 \end_inset
 
@@ -418,7 +424,7 @@ A Closer Look at Memorization in Deep Networks
 Devansh Arpit, Stanisław Jastrzębski, Nicolas Ballas, David Krueger, Emmanuel
  Bengio, Maxinder S.
  Kanwal, Tegan Maharaj, Asja Fischer, Aaron Courville, Yoshua Bengio, Simon
- Lacoste-Julien, (ICML 2017, NVIDIA Pioneering Research Award)
+ Lacoste-Julien (ICML 2017, NVIDIA Pioneering Research Award)
 \end_layout
 
 \begin_layout Standard
@@ -430,7 +436,7 @@ Independently Controllable Features
 .
 
 \emph default
- Emmanuel Bengio, Valentin Thomas, Joelle Pineau, Doina Precup, Yoshua Bengio,
+ Emmanuel Bengio, Valentin Thomas, Joelle Pineau, Doina Precup, Yoshua Bengio
  (RLDM 2017)
 \end_layout
 
@@ -441,8 +447,7 @@ Conditional Computation in Neural Networks for faster models
 \series default
 .
  Emmanuel Bengio, Pierre-Luc Bacon, Joelle Pineau, Doina Precup.
- International Conference on Learning Representations, Workshop Track (ICLR
- 2016)
+ Workshop Track (ICLR 2016)
 \end_layout
 
 \begin_layout Standard
@@ -512,6 +517,44 @@ height "1pt"
 \end_layout
 
 \begin_layout Standard
+Senior Machine Learning Scientist 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+hfill
+\end_layout
+
+\end_inset
+
+ 
+\noun on
+Recursion Pharmaceuticals, 2022-
+\end_layout
+
+\begin_layout Standard
+Research Internship, Deepmind Montreal team 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+hfill
+\end_layout
+
+\end_inset
+
+ 
+\noun on
+Deepmind, 2019
+\end_layout
+
+\begin_layout Standard
 Research Internship, Google Brain Montreal team 
 \begin_inset ERT
 status open
@@ -528,25 +571,6 @@ hfill
 
 \noun on
 Google, 2018
-\end_layout
-
-\begin_layout Standard
-Research Internship, Deepmind Montreal 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-hfill
-\end_layout
-
-\end_inset
-
- 
-\noun on
-Deepmind, 2019
 \end_layout
 
 \begin_layout Standard
@@ -1309,8 +1333,9 @@ hspace{0.6cm}
 
 \end_inset
 
-I am currently a 5th year PhD student at McGill University, doing research
- on Deep RL.
+I am currently a Senior ML Scientist at Recursion, doing research on generaive
+ models of drug molecules, and freshy out of a PhD at McGill University/Mila,
+ where I was doing research on Deep RL.
  
 \end_layout
 
